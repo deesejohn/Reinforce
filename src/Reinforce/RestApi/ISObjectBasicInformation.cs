@@ -16,11 +16,11 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}")]
         [Header("Authorization", "Bearer")]
-        Task<SObjectBasicInformationResponse> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default);
+        Task<SObjectBasicInformationResponse> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default(CancellationToken));
 
         [Post("/services/data/v46.0/sobjects/{sObjectName}")]
         [Header("Authorization", "Bearer")]
-        Task<SuccessResponse> PostAsync<TSObject>([Path] string sObjectName, [Body] TSObject sObject, CancellationToken cancellationToken = default);
+        Task<SuccessResponse> PostAsync<TSObject>([Path] string sObjectName, [Body] TSObject sObject, CancellationToken cancellationToken = default(CancellationToken));
     }
     
     public class SObjectBasicInformationResponse

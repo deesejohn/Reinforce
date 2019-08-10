@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
         
         [Get("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
@@ -27,7 +27,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Patch("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
@@ -37,7 +37,7 @@ namespace Reinforce.RestApi
             [Path] string fieldName,
             [Path] string fieldValue,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Delete("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
@@ -46,7 +46,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Post("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
@@ -55,7 +55,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
     }
 }

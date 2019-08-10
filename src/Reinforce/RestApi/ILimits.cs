@@ -15,7 +15,7 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/limits")]
         [Header("Authorization", "Bearer")]
-        Task<IDictionary<string, Limit>> GetAsync(CancellationToken cancellationToken = default);
+        Task<IDictionary<string, Limit>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class Limit

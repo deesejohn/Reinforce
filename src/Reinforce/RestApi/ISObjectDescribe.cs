@@ -14,6 +14,6 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe")]
         [Header("Authorization", "Bearer")]
-        Task<dynamic> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default);
+        Task<dynamic> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

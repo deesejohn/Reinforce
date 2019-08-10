@@ -14,7 +14,7 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/query?q={query}")]
         [Header("Authorization", "Bearer")]
-        Task<QueryResponse<TSObject>> GetAsync<TSObject>([Path(UrlEncode = false)] string query, CancellationToken cancellationToken = default);
+        Task<QueryResponse<TSObject>> GetAsync<TSObject>([Path(UrlEncode = false)] string query, CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class QueryResponse<TSObject>

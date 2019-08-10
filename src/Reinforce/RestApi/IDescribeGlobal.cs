@@ -15,7 +15,7 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects")]
         [Header("Authorization", "Bearer")]
-        Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken = default);
+        Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class DescribeGlobalResponse

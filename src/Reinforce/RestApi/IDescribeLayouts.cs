@@ -14,11 +14,11 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects/Global/describe/layouts")]
         [Header("Authorization", "Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<DescribeLayout>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
 
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/layouts")]
         [Header("Authorization", "Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default);
+        Task<IEnumerable<DescribeLayout>> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class DescribeLayout
