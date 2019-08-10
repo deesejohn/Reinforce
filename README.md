@@ -1,6 +1,6 @@
 Reinforce
 ==================================
-
+[![Build Status](https://dev.azure.com/deesejohn/Reinforce/_apis/build/status/deesejohn.Reinforce?branchName=master)](https://dev.azure.com/deesejohn/Reinforce/_build/latest?definitionId=1&branchName=master)
 ### What is Reinforce?
 
 Reinforce is a Rest Interface for Force.com! It utilizes [RestEase](https://github.com/canton7/RestEase) to turn Salesforce's rest api into a dependency injection friendly C# library.
