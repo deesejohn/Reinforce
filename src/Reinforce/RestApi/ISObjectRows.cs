@@ -19,7 +19,7 @@ namespace Reinforce.RestApi
         Task<TSObject> GetAsync<TSObject>(
             [Path] string sObjectName,
             [Path] string id,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}?fields={fields}")]
@@ -28,7 +28,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Path(UrlEncode = false)] string fields,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Patch("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
@@ -37,7 +37,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
 
         [Delete("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
@@ -45,7 +45,7 @@ namespace Reinforce.RestApi
         Task DeleteAsync(
             [Path] string sObjectName,
             [Path] string id,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
     }
 }

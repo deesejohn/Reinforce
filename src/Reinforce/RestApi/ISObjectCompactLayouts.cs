@@ -16,7 +16,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<CompactLayoutsResponse> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default
+            CancellationToken cancellationToken = default(CancellationToken)
         );
     }
 

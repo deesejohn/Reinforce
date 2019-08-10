@@ -15,7 +15,7 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data")]
         [Header("Authorization", "Bearer")]
-        Task<IEnumerable<VersionResponse>> GetAsync(CancellationToken cancellationToken = default);
+        Task<IEnumerable<VersionResponse>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
     }
 
     public class VersionResponse
