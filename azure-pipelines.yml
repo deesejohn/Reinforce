@@ -27,13 +27,14 @@ steps:
     command: test
     projects: 'tests/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+  displayName: Unit Tests
 
 - task: DotNetCoreCLI@2
   inputs:
     command: pack
     packagesToPack: src/Reinforce/Reinforce.csproj
     configuration: $(BuildConfiguration)
-    packDirectory: $(Build.ArtifactStagingDirectory)\drop
+    packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
   displayName: Pack
 
@@ -42,7 +43,7 @@ steps:
     command: pack
     packagesToPack: src/Reinforce.HttpClientFactory/Reinforce.HttpClientFactory.csproj
     configuration: $(BuildConfiguration)
-    packDirectory: $(Build.ArtifactStagingDirectory)\drop    
+    packDirectory: $(Build.ArtifactStagingDirectory)    
     verbosityPack: Minimal
   displayName: Pack Extensions
 
