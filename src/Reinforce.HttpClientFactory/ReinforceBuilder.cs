@@ -7,9 +7,11 @@ namespace Reinforce.HttpClientFactory
     {
         IServiceCollection Services { get; }
     }
+
     public class ReinforceBuilder : IReinforceBuilder
     {
         public IServiceCollection Services { get; }
+
         public ReinforceBuilder(IServiceCollection services)
         {
             Services = services ?? throw new ArgumentNullException(nameof(services));
