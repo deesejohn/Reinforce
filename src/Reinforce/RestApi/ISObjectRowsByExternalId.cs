@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -13,49 +13,49 @@ namespace Reinforce.RestApi
     public interface ISObjectRowsByExternalId
     {
         [Head("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<dynamic> HeadAsync(
-            string sObjectName,
-            string fieldName,
-            string fieldValue,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            [Path] string fieldName,
+            [Path] string fieldValue,
+            CancellationToken cancellationToken = default
         );
         
         [Get("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<TSObject> GetAsync<TSObject>(
-            string sObjectName,
-            string fieldName,
-            string fieldValue,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            [Path] string fieldName,
+            [Path] string fieldValue,
+            CancellationToken cancellationToken = default
         );
 
         [Patch("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<SuccessResponse> PatchAsync<TSObject>(
-            string sObjectName,
-            string fieldName,
-            string fieldValue,
+            [Path] string sObjectName,
+            [Path] string fieldName,
+            [Path] string fieldValue,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         );
 
         [Delete("/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task DeleteAsync(
-            string sObjectName,
-            string fieldName,
-            string fieldValue,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            [Path] string fieldName,
+            [Path] string fieldValue,
+            CancellationToken cancellationToken = default
         );
 
         [Post("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<SuccessResponse> PostAsync<TSObject>(
-            string sObjectName,
-            string id,
+            [Path] string sObjectName,
+            [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         );
     }
 }

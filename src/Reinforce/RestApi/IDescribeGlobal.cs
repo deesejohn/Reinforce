@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -14,8 +14,8 @@ namespace Reinforce.RestApi
     public interface IDescribeGlobal
     {
         [Get("/services/data/v46.0/sobjects")]
-        [Headers("Authorization: Bearer")]
-        Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken = default);
     }
 
     public class DescribeGlobalResponse

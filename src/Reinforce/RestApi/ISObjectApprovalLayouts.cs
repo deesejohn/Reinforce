@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -14,18 +14,18 @@ namespace Reinforce.RestApi
     public interface ISObjectApprovalLayouts
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/approvalLayouts")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<ApprovalLayoutsResponse> GetAsync(
-            string sObjectName,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            CancellationToken cancellationToken = default
         );
 
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/approvalLayouts/{approvalProcessName}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<ApprovalLayoutsResponse> GetAsync(
-            string sObjectName,
-            string approvalProcessName,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            [Path] string approvalProcessName,
+            CancellationToken cancellationToken = default
         );
     }
 

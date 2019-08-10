@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 using AccountApi.Models;
-using Refit;
+using RestEase;
 using Reinforce.RestApi;
 using System.Collections.Generic;
 
@@ -22,16 +22,9 @@ namespace AccountApi.Services
 
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
         {
-            try
-            {
-                var query = "Select Id, Name From Account".Split();
-                var response = await _query.GetAsync<Account>(new SoqlQuery { Query = query }, cancellationToken);
-                return response.Records;
-            }
-            catch (ApiException exception)
-            {
-                return null;
-            }
+            var query = "Select Id, Name From Account".Replace(' ', '+');
+            var response = await _query.GetAsync<Account>(query, cancellationToken);
+            return response.Records;
         }
 
         public async Task<Account> ReadAsync(string id, CancellationToken cancellationToken)

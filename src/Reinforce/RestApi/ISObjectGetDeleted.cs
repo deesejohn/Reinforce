@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -15,11 +15,12 @@ namespace Reinforce.RestApi
     public interface ISObjectGetDeleted
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/deleted")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<SObjectGetDeleted> GetAsync(
-            string sObjectName,
-            CancellationToken cancellationToken,
-            [Query(Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateRange range = default
+            [Path] string sObjectName,
+            [Query("start", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? startDateAndTime = default,
+            [Query("end", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? endDateAndTime = default,
+            CancellationToken cancellationToken = default
         );
     }
 

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -13,12 +13,12 @@ namespace Reinforce.RestApi
     public interface IDescribeLayouts
     {
         [Get("/services/data/v46.0/sobjects/Global/describe/layouts")]
-        [Headers("Authorization: Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync(CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<IEnumerable<DescribeLayout>> GetAsync(CancellationToken cancellationToken = default);
 
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/layouts")]
-        [Headers("Authorization: Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync(string sObjectName, CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<IEnumerable<DescribeLayout>> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default);
     }
 
     public class DescribeLayout

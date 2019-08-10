@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -13,7 +13,7 @@ namespace Reinforce.RestApi
     public interface IResourcesByVersion
     {
         [Get("/services/data/v46.0")]
-        [Headers("Authorization: Bearer")]
-        Task<IDictionary<string, string>> GetAsync(CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<IDictionary<string, string>> GetAsync(CancellationToken cancellationToken = default);
     }
 }

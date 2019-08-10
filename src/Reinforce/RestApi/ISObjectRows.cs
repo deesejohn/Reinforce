@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -15,31 +15,37 @@ namespace Reinforce.RestApi
     public interface ISObjectRows
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<TSObject> GetAsync<TSObject>(
-            string sObjectName,
-            string id,
-            CancellationToken cancellationToken //,
-            // TODO: Add back once Refit 4.7.20+ is avaliable on nuget.org
-            // https://github.com/reactiveui/refit/issues/522
-            // [Query(CollectionFormat.Csv)] string[] fields = default
+            [Path] string sObjectName,
+            [Path] string id,
+            CancellationToken cancellationToken = default
+        );
+
+        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}?fields={fields}")]
+        [Header("Authorization", "Bearer")]
+        Task<TSObject> GetAsync<TSObject>(
+            [Path] string sObjectName,
+            [Path] string id,
+            [Path(UrlEncode = false)] string fields,
+            CancellationToken cancellationToken = default
         );
 
         [Patch("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task PatchAsync<TSObject>(
-            string sObjectName,
-            string id,
+            [Path] string sObjectName,
+            [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken
+            CancellationToken cancellationToken = default
         );
 
         [Delete("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
-        [Headers("Authorization: Bearer")]
-        Task DeleteAsync<TSObject>(
-            string sObjectName,
-            string id,
-            CancellationToken cancellationToken
+        [Header("Authorization", "Bearer")]
+        Task DeleteAsync(
+            [Path] string sObjectName,
+            [Path] string id,
+            CancellationToken cancellationToken = default
         );
     }
 }

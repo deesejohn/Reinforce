@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.Authentication.Flows
 {
@@ -8,11 +8,11 @@ namespace Reinforce.Authentication.Flows
     {
         [Post("/services/oauth2/token")]
         Task<AuthenticationResponse> PostAsync(
-            [AliasAs("grant_type")] string grantType,
-            [AliasAs("client_id")] string clientId,
-            [AliasAs("client_secret")] string clientSecret,
-            [AliasAs("username")] string username,
-            [AliasAs("password")] string password,
+            [Query("grant_type")] string grantType,
+            [Query("client_id")] string clientId,
+            [Query("client_secret")] string clientSecret,
+            [Query("username")] string username,
+            [Query("password")] string password,
             CancellationToken cancellationToken
         );
     }

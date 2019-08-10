@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -13,7 +13,7 @@ namespace Reinforce.RestApi
     public interface ISObjectDescribe
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe")]
-        [Headers("Authorization: Bearer")]
-        Task<dynamic> GetAsync(string sObjectName, CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<dynamic> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default);
     }
 }

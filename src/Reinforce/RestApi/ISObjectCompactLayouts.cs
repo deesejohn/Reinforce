@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -13,10 +13,10 @@ namespace Reinforce.RestApi
     public interface ISObjectCompactLayouts
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/compactLayouts")]
-        [Headers("Authorization: Bearer")]
+        [Header("Authorization", "Bearer")]
         Task<CompactLayoutsResponse> GetAsync(
-            string sObjectName,
-            CancellationToken cancellationToken
+            [Path] string sObjectName,
+            CancellationToken cancellationToken = default
         );
     }
 

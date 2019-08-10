@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Refit;
+using RestEase;
 
 namespace Reinforce.RestApi
 {
@@ -12,7 +12,7 @@ namespace Reinforce.RestApi
     public interface ISObjectNamedLayouts
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}")]
-        [Headers("Authorization: Bearer")]
-        Task<dynamic> GetAsync(string sObjectName, string layoutName, CancellationToken cancellationToken);
+        [Header("Authorization", "Bearer")]
+        Task<dynamic> GetAsync([Path] string sObjectName, [Path] string layoutName, CancellationToken cancellationToken = default);
     }
 }
