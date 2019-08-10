@@ -14,6 +14,7 @@ namespace Reinforce.HttpClientFactory
                     .AddRestApis()
                     .AddTransient<AuthenticationHandler>()
             );
+
         private static IServiceCollection AddAuthenticatedApi<TApi>(this IServiceCollection services) where TApi : class
             => services
                 .AddHttpClient(typeof(TApi).FullName)

@@ -22,7 +22,7 @@ namespace Reinforce.HttpClientFactory.Authentication
 
         public Task<AuthenticationResponse> GetAsync(CancellationToken cancellationToken)
         {
-            return _cache.GetOrCreateAsync("", entry => 
+            return _cache.GetOrCreateAsync("Reinforce.HttpClientFactory.Authentication.UsernamePassword", entry => 
             {
                 entry.SetAbsoluteExpiration(TimeSpan.FromMinutes(15));
                 return _api.PostAsync(
