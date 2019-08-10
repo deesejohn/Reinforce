@@ -16,13 +16,36 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet build --configuration $(buildConfiguration)
-  displayName: 'dotnet build $(buildConfiguration)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: build
+    arguments: -c $(BuildConfiguration)   
+  displayName: Build
+
 - task: DotNetCoreCLI@2
   inputs:
     command: test
-    projects: '**/*Tests/*.csproj'
+    projects: 'tests/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
+  displayName: Unit Tests
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: pack
+    packagesToPack: src/Reinforce/Reinforce.csproj
+    configuration: $(BuildConfiguration)
+    packDirectory: $(Build.ArtifactStagingDirectory)
+    nobuild: true
+  displayName: Pack
+
+- task: DotNetCoreCLI@2
+  inputs:
+    command: pack
+    packagesToPack: src/Reinforce.HttpClientFactory/Reinforce.HttpClientFactory.csproj
+    configuration: $(BuildConfiguration)
+    packDirectory: $(Build.ArtifactStagingDirectory)    
+    verbosityPack: Minimal
+  displayName: Pack Extensions
 
 - task: PublishBuildArtifacts@1
   inputs:
