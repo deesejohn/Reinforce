@@ -16,6 +16,16 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: DotNetCoreCLI@2  
+  inputs:
+    command: custom
+    custom: tool
+    arguments: install --tool-path . nbgv
+  displayName: Install Nerdbank.GitVersioning
+
+- script: nbgv cloud
+  displayName: Set Version
+
 - task: DotNetCoreCLI@2
   inputs:
     command: build
@@ -36,8 +46,6 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
   displayName: Pack
 
 - task: DotNetCoreCLI@2
@@ -47,8 +55,6 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)    
     verbosityPack: Minimal
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
   displayName: Pack Extensions
 
 - task: PublishBuildArtifacts@1
