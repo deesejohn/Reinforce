@@ -5,7 +5,7 @@
   },
   "cloudBuild": {
     "buildNumber": {
-      "enabled": false
+      "enabled": true
     }
   },
   "publicReleaseRefSpec": [
