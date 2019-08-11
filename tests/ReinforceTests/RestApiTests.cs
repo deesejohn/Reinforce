@@ -337,6 +337,61 @@ namespace ReinforceTests
             handler.ConfirmPath($"/services/data/v46.0/sobjects/PlatformAction?q={query}");
         }
 
+        [Theory, AutoData]
+        public async Task ISObjectQuickActions(IEnumerable<QuickAction> expected, string sObjectName)
+        {
+            var handler = SetupHandler(expected);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            var result = await api.GetAsync(sObjectName);
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions");
+        }
+
+        [Theory, AutoData]
+        public async Task ISObjectQuickActionsByActionName(string sObjectName, string actionName)
+        {
+            var handler = SetupHandler(null);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            await api.GetAsync(sObjectName, actionName);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}");
+        }
+
+        [Theory, AutoData]
+        public async Task ISObjectQuickActionsPostByActionName(string sObjectName, string actionName, QuickAction action)
+        {
+            var handler = SetupHandler(null);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            await api.PostAsync(sObjectName, actionName, action);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}");
+        }
+
+        [Theory, AutoData]
+        public async Task ISObjectQuickActionsDescribe(string sObjectName, string actionName)
+        {
+            var handler = SetupHandler(null);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            await api.DescribeAsync(sObjectName, actionName);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/describe");
+        }
+
+        [Theory, AutoData]
+        public async Task ISObjectQuickActionsDefaultValues(string sObjectName, string actionName)
+        {
+            var handler = SetupHandler(null);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            await api.DefaultValuesAsync(sObjectName, actionName);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues");
+        }
+
+        [Theory, AutoData]
+        public async Task ISObjectQuickActionsDefaultValuesByContextId(string sObjectName, string actionName, string contextId)
+        {
+            var handler = SetupHandler(null);
+            var api = SetupApi<ISObjectQuickActions>(handler);
+            await api.DefaultValuesAsync(sObjectName, actionName, contextId);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues/{contextId}");
+        }
+
         private class MockHttpMessageHandler : HttpMessageHandler
         {
             public HttpRequestMessage Request;
