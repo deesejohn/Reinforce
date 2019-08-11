@@ -23,7 +23,7 @@ steps:
     arguments: install --tool-path . nbgv
   displayName: Install Nerdbank.GitVersioning
 
-- script: nbgv cloud
+- script: ./nbgv cloud
   displayName: Set Version
 
 - task: DotNetCoreCLI@2
