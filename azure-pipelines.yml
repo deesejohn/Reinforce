@@ -36,6 +36,7 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
+    versioningScheme: 'byBuildNumber'
   displayName: Pack
 
 - task: DotNetCoreCLI@2
@@ -45,6 +46,7 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)    
     verbosityPack: Minimal
+    versioningScheme: 'byBuildNumber'
   displayName: Pack Extensions
 
 - task: PublishBuildArtifacts@1
