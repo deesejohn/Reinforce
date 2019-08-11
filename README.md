@@ -1,6 +1,9 @@
 Reinforce
 ==================================
 [![Build Status](https://dev.azure.com/deesejohn/Reinforce/_apis/build/status/deesejohn.Reinforce?branchName=master)](https://dev.azure.com/deesejohn/Reinforce/_build/latest?definitionId=1&branchName=master)
+[![NuGet](https://img.shields.io/nuget/v/Reinforce.svg)](https://www.nuget.org/packages/Reinforce/)
+[![NuGet](https://img.shields.io/nuget/v/Reinforce.HttpClientFactory.svg)](https://www.nuget.org/packages/Reinforce.HttpClientFactory/)
+
 ### What is Reinforce?
 
 Reinforce is a Rest Interface for Force.com! It utilizes [RestEase](https://github.com/canton7/RestEase) to turn Salesforce's rest api into a dependency injection friendly C# library.
