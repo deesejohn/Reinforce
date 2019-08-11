@@ -18,7 +18,7 @@ variables:
 steps:
 - script: |
     dotnet tool install --tool-path . nbgv
-    .\nbgv cloud
+    ./nbgv cloud
   displayName: Set build number
 
 - task: DotNetCoreCLI@2
