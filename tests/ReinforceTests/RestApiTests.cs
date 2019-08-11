@@ -327,6 +327,16 @@ namespace ReinforceTests
             handler.ConfirmPath($"/services/data");
         }
 
+        [Theory, AutoData]
+        public async Task ISObjectPlatformAction(ObjectDescribeResponse expected, string query)
+        {
+            var handler = SetupHandler(expected);
+            var api = SetupApi<ISObjectPlatformAction>(handler);
+            var result = await api.GetAsync(query);
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/PlatformAction?q={query}");
+        }
+
         private class MockHttpMessageHandler : HttpMessageHandler
         {
             public HttpRequestMessage Request;

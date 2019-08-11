@@ -39,7 +39,8 @@ namespace Reinforce.HttpClientFactory
                 .AddAuthenticatedApi<ISObjectBlobRetrieve>()
                 .AddAuthenticatedApi<ISObjectApprovalLayouts>()
                 .AddAuthenticatedApi<ISObjectCompactLayouts>()
-                .AddAuthenticatedApi<IDescribeLayouts>()          
+                .AddAuthenticatedApi<IDescribeLayouts>()
+                .AddAuthenticatedApi<ISObjectPlatformAction>()      
                 .AddAuthenticatedApi<IQuery>();
     }
 }
