@@ -16,6 +16,11 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script: |
+    dotnet tool install --tool-path . nbgv
+    ./nbgv cloud
+  displayName: Set build number
+
 - task: DotNetCoreCLI@2
   inputs:
     command: build
@@ -36,8 +41,6 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
   displayName: Pack
 
 - task: DotNetCoreCLI@2
@@ -47,8 +50,6 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)    
     verbosityPack: Minimal
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
   displayName: Pack Extensions
 
 - task: PublishBuildArtifacts@1
