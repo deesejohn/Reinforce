@@ -16,15 +16,10 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: DotNetCoreCLI@2  
-  inputs:
-    command: custom
-    custom: tool
-    arguments: install --tool-path . nbgv
-  displayName: Install Nerdbank.GitVersioning
-
-- script: ./nbgv cloud
-  displayName: Set Version
+- script: |
+    dotnet tool install --tool-path . nbgv
+    .\nbgv cloud
+  displayName: Set build number
 
 - task: DotNetCoreCLI@2
   inputs:
