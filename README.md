@@ -1,9 +1,10 @@
 Reinforce
 ==================================
 [![Build Status](https://dev.azure.com/deesejohn/Reinforce/_apis/build/status/deesejohn.Reinforce?branchName=master)](https://dev.azure.com/deesejohn/Reinforce/_build/latest?definitionId=1&branchName=master)
-[![NuGet](https://img.shields.io/nuget/v/Reinforce.svg?label=Reinforce)](https://www.nuget.org/packages/Reinforce/)
-[![NuGet](https://img.shields.io/nuget/v/Reinforce.HttpClientFactory.svg?label=Reinforce.HttpClientFactory)](https://www.nuget.org/packages/Reinforce.HttpClientFactory/)
 [![GitHub license](https://img.shields.io/github/license/deesejohn/Reinforce)](https://github.com/deesejohn/Reinforce/blob/master/LICENSE)
+![CodeFactor Grade](https://img.shields.io/codefactor/grade/github/deesejohn/reinforce)
+[![NuGet](https://img.shields.io/nuget/v/Reinforce.svg?label=Reinforce&logo=nuget)](https://www.nuget.org/packages/Reinforce/)
+[![NuGet](https://img.shields.io/nuget/v/Reinforce.HttpClientFactory.svg?label=Reinforce.HttpClientFactory&logo=nuget)](https://www.nuget.org/packages/Reinforce.HttpClientFactory/)
 
 ### What is Reinforce?
 
