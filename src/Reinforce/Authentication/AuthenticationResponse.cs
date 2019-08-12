@@ -1,5 +1,9 @@
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
 namespace Reinforce.Authentication
 {
+    [JsonObject(NamingStrategyType = typeof(SnakeCaseNamingStrategy))]
     public class AuthenticationResponse
     {
         public string AccessToken { get; set; }
