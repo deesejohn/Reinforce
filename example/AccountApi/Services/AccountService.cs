@@ -22,7 +22,7 @@ namespace AccountApi.Services
 
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
         {
-            var query = "Select Id, Name From Account".Replace(' ', '+');
+            var query = "Select Id, Name From Account Where Active__c = 'Yes'";
             var response = await _query.GetAsync<Account>(query, cancellationToken);
             return response.Records;
         }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -60,14 +61,5 @@ namespace Reinforce.RestApi
             [Path] string contextId,
             CancellationToken cancellationToken = default(CancellationToken)
         );
-    }
-
-    public class QuickAction
-    {
-        public string ActionEnumOrId { get; set; }
-        public string Label { get; set; }
-        public string Name { get; set; }
-        public string Type { get; set; }
-        public IDictionary<string, string> Urls { get; set; }
     }
 }

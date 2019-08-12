@@ -18,7 +18,9 @@ The easiest way to get started is by using the Reinforce.HttpClientFactory packa
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddReinforce()
-        .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)).Get<UsernamePasswordSettings>());
+        .UseUsernamePasswordFlow(
+            Configuration.GetSection(nameof(UsernamePasswordSettings)).Get<UsernamePasswordSettings>()
+        );
 }
 ```
 Then in your application code, inject the api:
@@ -33,8 +35,7 @@ public AccountService(IQuery query)
 
 public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
 {
-    var query = "Select Id, Name From Account".Replace(' ', '+');
-    var response = await _query.GetAsync<Account>(query, cancellationToken);
+    var response = await _query.GetAsync<Account>("Select Id, Name From Account", cancellationToken);
     return response.Records;
 }
 ```

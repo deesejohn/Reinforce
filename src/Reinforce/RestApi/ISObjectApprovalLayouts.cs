@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -27,19 +28,5 @@ namespace Reinforce.RestApi
             [Path] string approvalProcessName,
             CancellationToken cancellationToken = default(CancellationToken)
         );
-    }
-
-    public class ApprovalLayoutsResponse
-    {
-        public IEnumerable<ApprovalLayout> ApprovalLayouts { get; set; }
-    }
-
-    public class ApprovalLayout
-    {
-        public string Id { get; set; }
-        public string Label { get; set; }
-        public IEnumerable<dynamic> LayoutItems { get; set; }
-
-        public string Name { get; set; }
     }
 }

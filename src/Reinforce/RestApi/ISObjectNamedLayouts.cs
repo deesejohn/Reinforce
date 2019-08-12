@@ -13,6 +13,10 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}")]
         [Header("Authorization", "Bearer")]
-        Task<dynamic> GetAsync([Path] string sObjectName, [Path] string layoutName, CancellationToken cancellationToken = default(CancellationToken));
+        Task<dynamic> GetAsync(
+            [Path] string sObjectName,
+            [Path] string layoutName,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
     }
 }

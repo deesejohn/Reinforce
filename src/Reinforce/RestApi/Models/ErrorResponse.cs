@@ -1,4 +1,4 @@
-namespace Reinforce.RestApi
+namespace Reinforce.RestApi.Models
 {
     public class ErrorResponse
     {
