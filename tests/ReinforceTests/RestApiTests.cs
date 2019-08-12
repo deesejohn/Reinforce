@@ -141,7 +141,6 @@ namespace ReinforceTests
             await api.GetAsync(sObjectName, CancellationToken.None);
             handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/describe");
         }
-
         
         [Theory, AutoData]
         public async Task ISObjectGetDeleted(SObjectGetDeleted expected, string sObjectName)
