@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -22,18 +23,5 @@ namespace Reinforce.RestApi
             [Query("end", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? endDateAndTime = null,
             CancellationToken cancellationToken = default(CancellationToken)
         );
-    }
-
-    public class SObjectGetDeleted
-    {
-        public IEnumerable<DeletedRecord> DeletedRecords { get; set; }
-        public DateTimeOffset? EarliestDateAvailable { get; set; }
-        public DateTimeOffset? LatestDateCovered { get; set; }
-    }
-
-    public class DeletedRecord
-    {
-        public string Id { get; set; }
-        public DateTimeOffset? DeletedDate { get; set; }
     }
 }

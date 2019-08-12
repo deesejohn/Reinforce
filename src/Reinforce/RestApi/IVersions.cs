@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -16,12 +17,5 @@ namespace Reinforce.RestApi
         [Get("/services/data")]
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<VersionResponse>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
-    }
-
-    public class VersionResponse
-    {
-        public string Version { get; set; }
-        public string Label { get; set; }
-        public string Url { get; set; }
     }
 }

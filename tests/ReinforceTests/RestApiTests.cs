@@ -7,6 +7,7 @@ using AutoFixture.Xunit2;
 using FluentAssertions;
 using Newtonsoft.Json;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Models;
 using RestEase;
 using Xunit;
 
@@ -55,13 +56,14 @@ namespace ReinforceTests
         }
 
         [Theory, AutoData]
-        public async Task IQuery(QueryResponse<string> expected, string query)
+        public async Task IQuery(QueryResponse<string> expected)
         {
+            var query = "Select Id, Name From Account Where Active__c = 'Yes'";
             var handler = SetupHandler(expected);
             var api = SetupApi<IQuery>(handler);
             var result = await api.GetAsync<string>(query, CancellationToken.None);
             result.Should().BeEquivalentTo(expected);
-            handler.ConfirmPath($"/services/data/v46.0/query?q={query}");
+            handler.ConfirmPath("/services/data/v46.0/query?q=Select+Id%2C+Name+From+Account+Where+Active__c+%3D+%27Yes%27");
         }
 
         [Theory, AutoData]

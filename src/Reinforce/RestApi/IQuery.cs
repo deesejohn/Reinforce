@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -12,16 +14,11 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IQuery
     {
-        [Get("/services/data/v46.0/query?q={query}")]
+        [Get("/services/data/v46.0/query")]
         [Header("Authorization", "Bearer")]
-        Task<QueryResponse<TSObject>> GetAsync<TSObject>([Path(UrlEncode = false)] string query, CancellationToken cancellationToken = default(CancellationToken));
-    }
-
-    public class QueryResponse<TSObject>
-    {
-        public bool? Done { get; set; }
-        public string NextRecordsUrl { get; set; }
-        public IEnumerable<TSObject> Records { get; set; }
-        public int? TotalSize { get; set; }
+        Task<QueryResponse<TSObject>> GetAsync<TSObject>(
+            [Query] string q,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
     }
 }

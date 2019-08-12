@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -15,17 +16,11 @@ namespace Reinforce.RestApi
 
     public interface ISObjectPlatformAction
     {
-        [Get("/services/data/v46.0/sobjects/PlatformAction?q={query}")]
+        [Get("/services/data/v46.0/sobjects/PlatformAction")]
         [Header("Authorization", "Bearer")]
         Task<ObjectDescribeResponse> GetAsync(
-            [Path(UrlEncode = false)] string query,
+            [Query] string q,
             CancellationToken cancellationToken = default(CancellationToken)
         );
-    }
-
-    public class ObjectDescribeResponse
-    {
-        public SObject ObjectDescribe { get; set; }
-        public IEnumerable<dynamic> RecentItems { get; set; }
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -16,12 +17,5 @@ namespace Reinforce.RestApi
         [Get("/services/data/v46.0/sobjects")]
         [Header("Authorization", "Bearer")]
         Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
-    }
-
-    public class DescribeGlobalResponse
-    {
-        public string Encoding { get; set; }
-        public int? MaxBatchSize { get; set; }
-        public IEnumerable<SObject> SObjects { get; set; }
     }
 }

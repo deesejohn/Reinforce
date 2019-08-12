@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Reinforce.RestApi
+namespace Reinforce.RestApi.Models
 {
     public class SuccessResponse
     {

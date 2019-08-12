@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -16,23 +17,17 @@ namespace Reinforce.RestApi
     {
         [Get("/services/data/v46.0/sobjects/{sObjectName}")]
         [Header("Authorization", "Bearer")]
-        Task<SObjectBasicInformationResponse> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default(CancellationToken));
+        Task<SObjectBasicInformationResponse> GetAsync(
+            [Path] string sObjectName,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
 
         [Post("/services/data/v46.0/sobjects/{sObjectName}")]
         [Header("Authorization", "Bearer")]
-        Task<SuccessResponse> PostAsync<TSObject>([Path] string sObjectName, [Body] TSObject sObject, CancellationToken cancellationToken = default(CancellationToken));
-    }
-    
-    public class SObjectBasicInformationResponse
-    {
-        public SObject ObjectDescribe { get; set; }
-        public IEnumerable<RecentItem> RecentItems { get; set; }
-    }
-
-    public class RecentItem
-    {
-        public IDictionary<string, string> Attributes { get; set; }
-        public string Id { get; set; }
-        public string Name { get; set; }
-    }
+        Task<SuccessResponse> PostAsync<TSObject>(
+            [Path] string sObjectName,
+            [Body] TSObject sObject,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
+    }  
 }

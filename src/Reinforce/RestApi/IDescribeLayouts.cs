@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -18,22 +19,9 @@ namespace Reinforce.RestApi
 
         [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/layouts")]
         [Header("Authorization", "Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync([Path] string sObjectName, CancellationToken cancellationToken = default(CancellationToken));
-    }
-
-    public class DescribeLayout
-    {
-        public string Label { get; set; }
-        public int? LimitRows { get; set; }
-        public string Name { get; set; }
-        public IEnumerable<SearchColumn> SearchColumns { get; set; }
-    }
-
-    public class SearchColumn
-    {
-        public string Field { get; set; }
-        public object Format { get; set; }
-        public string Label { get; set; }
-        public string Name { get; set; }
+        Task<IEnumerable<DescribeLayout>> GetAsync(
+            [Path] string sObjectName,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
     }
 }

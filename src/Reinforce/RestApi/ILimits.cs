@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Models;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -16,11 +17,5 @@ namespace Reinforce.RestApi
         [Get("/services/data/v46.0/limits")]
         [Header("Authorization", "Bearer")]
         Task<IDictionary<string, Limit>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
-    }
-
-    public class Limit
-    {
-        public int? Max { get; set; }
-        public int? Remaining { get; set; }
     }
 }
