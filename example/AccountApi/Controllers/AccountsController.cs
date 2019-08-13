@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using AccountApi.Models;
 using AccountApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Reinforce.RestApi;
 
 namespace AccountApi.Controllers
 {
@@ -14,12 +13,10 @@ namespace AccountApi.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly ISObjectBasicInformation _sObjectBasicInformation;
 
-        public AccountsController(IAccountService accountService, ISObjectBasicInformation sObjectBasicInformation)
+        public AccountsController(IAccountService accountService)
         {
             _accountService = accountService ?? throw new ArgumentNullException(nameof(accountService));
-            _sObjectBasicInformation = sObjectBasicInformation ?? throw new ArgumentNullException(nameof(sObjectBasicInformation));
         }
 
         [HttpGet]
@@ -43,12 +40,6 @@ namespace AccountApi.Controllers
         public Task PatchAsync(string id, [FromBody] AccountUpdate account, CancellationToken cancellationToken)
         {
             return _accountService.UpdateAsync(id, account, cancellationToken);
-        }
-
-        [HttpPost]
-        public Task PostAsync([FromBody] Account account, CancellationToken cancellationToken)
-        {
-            return _sObjectBasicInformation.PostAsync(nameof(Account), account, cancellationToken);
         }
     }
 }

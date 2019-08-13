@@ -11,19 +11,34 @@ Reinforce
 Reinforce is a Rest Interface for Force.com! It utilizes [RestEase](https://github.com/canton7/RestEase) to turn Salesforce's rest api into a dependency injection friendly C# library.
 
 ### How do I get started?
-
-The easiest way to get started is by using the Reinforce.HttpClientFactory package that includes IServiceCollection extensions.
+#### Username Password Flow
+The easiest way to get started is by using the `Reinforce.HttpClientFactory` package that includes `IServiceCollection` extensions.
 
 ```csharp
+public Startup(IConfiguration configuration)
+{
+    Configuration = configuration;
+}
+
+public IConfiguration Configuration { get; }
+
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddReinforce()
-        .UseUsernamePasswordFlow(
-            Configuration.GetSection(nameof(UsernamePasswordSettings)).Get<UsernamePasswordSettings>()
-        );
+        .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
 }
 ```
-Then in your application code, inject the api:
+
+Setup your configuration.
+
+```sh
+> dotnet user-secrets set UsernamePasswordSettings:Username <Username>
+> dotnet user-secrets set UsernamePasswordSettings:Password <Password>
+> dotnet user-secrets set UsernamePasswordSettings:ClientId <ClientId>
+> dotnet user-secrets set UsernamePasswordSettings:ClientSecret <ClientSecret>
+```
+
+Then in your application code, inject the api of your choice.
 
 ```csharp
 private readonly IQuery _query;
@@ -39,6 +54,8 @@ public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellation
     return response.Records;
 }
 ```
+
+The list of supported APIs can be found in [src/Reinforce/RestApi](https://github.com/deesejohn/Reinforce/tree/master/src/Reinforce/RestApi)
 
 ### Do you have an issue?
 This project is still a work in progress and any pull requests would be greatly appreciated.

@@ -28,7 +28,7 @@ namespace AccountApi
                 c.SwaggerDoc("v1", new Info { Title = "Accounts API", Version = "v1" });
             });
             services.AddReinforce()
-                .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)).Get<UsernamePasswordSettings>());
+                .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
             services.AddScoped<IAccountService, AccountService>();
         }
 
