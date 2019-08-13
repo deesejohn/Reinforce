@@ -1,7 +1,7 @@
 using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Options;
 using Reinforce.Authentication.Flows;
 using Reinforce.HttpClientFactory.Authentication;
 using RestEase;
@@ -12,15 +12,35 @@ namespace Reinforce.HttpClientFactory
     {
         public static IHttpClientBuilder UseUsernamePasswordFlow(
             this IReinforceBuilder builder,
-            UsernamePasswordSettings settings,
+            Func<IServiceProvider, UsernamePasswordSettings> settingsProvider,
             Uri authenticationUri = null
         ) => builder
                 .Services
+                .AddTransient(settingsProvider)
+                .AddUsernamePasswordFlow(authenticationUri);
+
+        public static IHttpClientBuilder UseUsernamePasswordFlow(
+            this IReinforceBuilder builder,
+            IConfiguration config,
+            Uri authenticationUri = null
+        ) => builder
+                .Services
+                .Configure<UsernamePasswordSettings>(config)
+                .AddTransient(
+                    provider => provider.GetRequiredService<IOptionsMonitor<UsernamePasswordSettings>>().CurrentValue
+                )
+                .AddUsernamePasswordFlow(authenticationUri);
+
+        private static IHttpClientBuilder AddUsernamePasswordFlow(
+            this IServiceCollection services,
+            Uri authenticationUri = null
+        ) => services
                 .AddMemoryCache()
-                .AddSingleton(_ => settings)
                 .AddTransient<IAuthenticationProvider, UsernamePassword>()
                 .AddHttpClient(nameof(IUsernamePasswordOauth))
-                .ConfigureHttpClient(client => client.BaseAddress = authenticationUri ?? new Uri("https://login.salesforce.com"))
+                .ConfigureHttpClient(
+                    client => client.BaseAddress = authenticationUri ?? new Uri("https://login.salesforce.com")
+                )
                 .AddTypedClient(client => new RestClient(client).For<IUsernamePasswordOauth>());
     }
 }

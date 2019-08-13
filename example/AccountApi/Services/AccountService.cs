@@ -22,8 +22,7 @@ namespace AccountApi.Services
 
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
         {
-            var query = "Select Id, Name From Account Where Active__c = 'Yes'";
-            var response = await _query.GetAsync<Account>(query, cancellationToken);
+            var response = await _query.GetAsync<Account>("Select Id, Name From Account", cancellationToken);
             return response.Records;
         }
 

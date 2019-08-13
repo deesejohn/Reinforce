@@ -11,37 +11,35 @@ namespace Reinforce.HttpClientFactory
         public static IReinforceBuilder AddReinforce(this IServiceCollection services)
             => new ReinforceBuilder(
                 services
-                    .AddRestApis()
                     .AddTransient<AuthenticationHandler>()
+                    .AddRestApis()
             );
 
-        private static IServiceCollection AddAuthenticatedApi<TApi>(this IServiceCollection services) where TApi : class
+        private static IHttpClientBuilder AddRestApis(this IServiceCollection services)
             => services
-                .AddHttpClient(typeof(TApi).FullName)
+                .AddHttpClient(nameof(IReinforceBuilder))
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://login.salesforce.com"))
                 .AddHttpMessageHandler<AuthenticationHandler>()
-                .AddTypedClient((client) => new RestClient(client).For<TApi>())
-                .Services;
+                .AddRestClient<IVersions>()
+                .AddRestClient<IResourcesByVersion>()
+                .AddRestClient<ILimits>()
+                .AddRestClient<IDescribeGlobal>()
+                .AddRestClient<ISObjectBasicInformation>()
+                .AddRestClient<ISObjectDescribe>()
+                .AddRestClient<ISObjectGetDeleted>()
+                .AddRestClient<ISObjectGetUpdated>()
+                .AddRestClient<ISObjectNamedLayouts>()
+                .AddRestClient<ISObjectRows>()
+                .AddRestClient<ISObjectRowsByExternalId>()
+                .AddRestClient<ISObjectBlobRetrieve>()
+                .AddRestClient<ISObjectApprovalLayouts>()
+                .AddRestClient<ISObjectCompactLayouts>()
+                .AddRestClient<IDescribeLayouts>()
+                .AddRestClient<ISObjectPlatformAction>()
+                .AddRestClient<ISObjectQuickActions>()
+                .AddRestClient<IQuery>();
 
-        private static IServiceCollection AddRestApis(this IServiceCollection services)
-            => services
-                .AddAuthenticatedApi<IVersions>()
-                .AddAuthenticatedApi<IResourcesByVersion>()
-                .AddAuthenticatedApi<ILimits>()
-                .AddAuthenticatedApi<IDescribeGlobal>()
-                .AddAuthenticatedApi<ISObjectBasicInformation>()
-                .AddAuthenticatedApi<ISObjectDescribe>()
-                .AddAuthenticatedApi<ISObjectGetDeleted>()
-                .AddAuthenticatedApi<ISObjectGetUpdated>()
-                .AddAuthenticatedApi<ISObjectNamedLayouts>()
-                .AddAuthenticatedApi<ISObjectRows>()
-                .AddAuthenticatedApi<ISObjectRowsByExternalId>()
-                .AddAuthenticatedApi<ISObjectBlobRetrieve>()
-                .AddAuthenticatedApi<ISObjectApprovalLayouts>()
-                .AddAuthenticatedApi<ISObjectCompactLayouts>()
-                .AddAuthenticatedApi<IDescribeLayouts>()
-                .AddAuthenticatedApi<ISObjectPlatformAction>()
-                .AddAuthenticatedApi<ISObjectQuickActions>()
-                .AddAuthenticatedApi<IQuery>();
+        private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder) where TApi : class
+            => builder.AddTypedClient(client => new RestClient(client).For<TApi>());
     }
 }

@@ -5,16 +5,24 @@ namespace Reinforce.HttpClientFactory
 {
     public interface IReinforceBuilder
     {
-        IServiceCollection Services { get; }
+        IReinforceBuilder ConfigureApiClient(Action<IHttpClientBuilder> builder);
+        IServiceCollection Services { get ; }
     }
 
     public class ReinforceBuilder : IReinforceBuilder
     {
-        public IServiceCollection Services { get; }
+        private IHttpClientBuilder ApiClientBuilder { get; }
+        public IServiceCollection Services => ApiClientBuilder.Services;
 
-        public ReinforceBuilder(IServiceCollection services)
+        public ReinforceBuilder(IHttpClientBuilder builder)
         {
-            Services = services ?? throw new ArgumentNullException(nameof(services));
+            ApiClientBuilder = builder ?? throw new ArgumentNullException(nameof(builder));
+        }
+
+        public IReinforceBuilder ConfigureApiClient(Action<IHttpClientBuilder> builder)
+        {
+            builder(ApiClientBuilder);
+            return this;
         }
     }
 }
