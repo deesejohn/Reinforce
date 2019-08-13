@@ -258,7 +258,7 @@ namespace ReinforceTests
             var api = SetupApi<ISObjectRows>(handler);
             var result = await api.GetAsync<string>(sObjectName, id, "Id,Name", CancellationToken.None);
             result.Should().BeEquivalentTo(expected);
-            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}?fields=Id,Name");
+            handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}?fields=Id%2CName");
         }
 
         [Theory, AutoData]
