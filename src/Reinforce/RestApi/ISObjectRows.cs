@@ -22,12 +22,12 @@ namespace Reinforce.RestApi
             CancellationToken cancellationToken = default(CancellationToken)
         );
 
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}?fields={fields}")]
+        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
         [Header("Authorization", "Bearer")]
         Task<TSObject> GetAsync<TSObject>(
             [Path] string sObjectName,
             [Path] string id,
-            [Path(UrlEncode = false)] string fields,
+            [Query] string fields,
             CancellationToken cancellationToken = default(CancellationToken)
         );
 
