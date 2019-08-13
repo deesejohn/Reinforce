@@ -21,6 +21,14 @@ steps:
     ./nbgv cloud
   displayName: Set build number
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'SonarCloud'
+    organization: 'deesejohn'
+    scannerMode: 'MSBuild'
+    projectKey: 'deesejohn_Reinforce'
+    projectVersion: '$(Build.BuildNumber)'
+
 - task: DotNetCoreCLI@2
   inputs:
     command: build
@@ -33,6 +41,8 @@ steps:
     projects: 'tests/**/*.csproj'
     arguments: '--configuration $(buildConfiguration)'
   displayName: Unit Tests
+
+- task: SonarCloudAnalyze@1
 
 - task: DotNetCoreCLI@2
   inputs:
