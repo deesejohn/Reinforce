@@ -37,7 +37,8 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IDescribeLayouts>()
                 .AddRestClient<ISObjectPlatformAction>()
                 .AddRestClient<ISObjectQuickActions>()
-                .AddRestClient<IQuery>();
+                .AddRestClient<IQuery>()
+                .AddRestClient<IQueryAll>();
 
         private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder) where TApi : class
             => builder.AddTypedClient(client => new RestClient(client).For<TApi>());
