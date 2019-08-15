@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <PropertyGroup>
+    <Description>Dotnet Rest Interfaces for Salesforce.com with dotnet core depedency injection extensions</Description>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>
 

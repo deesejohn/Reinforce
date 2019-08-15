@@ -9,7 +9,7 @@ using Xunit;
 
 namespace ReinforceTests.RestApiTests
 {
-    public class SObjectGetDeletedTests
+    public class ISObjectGetDeletedTests
     {
         [Theory, AutoData]
         public async Task ISObjectGetDeleted(SObjectGetDeleted expected, string sObjectName)

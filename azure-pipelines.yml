@@ -19,7 +19,7 @@ steps:
 - script: |
     dotnet tool install --tool-path . nbgv
     ./nbgv cloud
-  displayName: Set build number
+  displayName: Set BuildNumber
 
 - task: SonarCloudPrepare@1
   inputs:
@@ -47,23 +47,15 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: pack
-    packagesToPack: src/Reinforce/Reinforce.csproj
+    packagesToPack: src/**/*.csproj
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
   displayName: Pack
-
-- task: DotNetCoreCLI@2
-  inputs:
-    command: pack
-    packagesToPack: src/Reinforce.HttpClientFactory/Reinforce.HttpClientFactory.csproj
-    configuration: $(BuildConfiguration)
-    packDirectory: $(Build.ArtifactStagingDirectory)
-    verbosityPack: Minimal
-  displayName: Pack Extensions
 
 - task: PublishBuildArtifacts@1
   inputs:
     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
     ArtifactName: 'drop'
     publishLocation: 'Container'
+  displayName: Publish Artifacts
