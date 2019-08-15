@@ -53,7 +53,7 @@ steps:
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: '$(Build.BuildNumber)'
-  displayName: pack
+  displayName: Pack
 
 - task: PublishBuildArtifacts@1
   inputs:
