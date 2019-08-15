@@ -51,7 +51,9 @@ steps:
     configuration: $(BuildConfiguration)
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
-  displayName: Pack
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: '$(Build.BuildNumber)'
+  displayName: pack
 
 - task: PublishBuildArtifacts@1
   inputs:
