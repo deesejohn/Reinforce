@@ -38,7 +38,7 @@ namespace ReinforceTests
             {
                 BaseAddress = new Uri("https://localhost")
             };
-            return RestClient.For<TApi>(client);
+            return new RestClient(client).For<TApi>();
         }
 
         public static MockHttpMessageHandler SetupHandler(object response)

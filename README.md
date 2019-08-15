@@ -8,7 +8,7 @@ Reinforce
 
 ### What is Reinforce?
 
-Reinforce is a Rest Interface for Force.com! It utilizes [RestEase](https://github.com/canton7/RestEase) to turn Salesforce's rest api into a dependency injection friendly C# library.
+Reinforce is set of Rest Interfaces for Salesforce.com! It utilizes [RestEase](https://github.com/canton7/RestEase) to turn Salesforce's rest api into a dependency injection friendly C# library. Used in pair with `Reinforce.HttpClientFactory`, you can get up and running within a few minutes!
 
 ### How do I get started?
 #### Username Password Flow

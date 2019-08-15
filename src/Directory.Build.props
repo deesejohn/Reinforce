@@ -1,0 +1,8 @@
+<Project>
+  <PropertyGroup>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/reactiveui/refit</PackageProjectUrl>
+    <PackageTags>Salesforce;REST;API</PackageTags>
+    <RepositoryUrl>https://github.com/reactiveui/refit</RepositoryUrl>
+  </PropertyGroup>
+</Project>
