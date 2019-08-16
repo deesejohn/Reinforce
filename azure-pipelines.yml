@@ -29,6 +29,7 @@ steps:
     projectKey: 'deesejohn_Reinforce'
     projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
+      sonar.sources=$(Build.SourcesDirectory)/src/
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
   displayName: SonarCloud Prepare
 
