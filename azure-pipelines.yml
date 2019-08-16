@@ -40,12 +40,14 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=$(Agent.TempDirectory)/CodeCoverage'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
   displayName: Unit Tests
 
 - script: |
     dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
-    ./reportgenerator -reports:$(Agent.TempDirectory)/CodeCoverage/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
+    ls $(Build.SourcesDirectory)/tests -la
+    ls $(Build.SourcesDirectory)/tests/ReinforceTests -la
+    ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'HtmlInline_AzurePipelines;Cobertura'
   displayName: Create Code Coverage Report
 
 - task: PublishCodeCoverageResults@1
