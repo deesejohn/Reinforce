@@ -52,8 +52,6 @@ steps:
     packDirectory: $(Build.ArtifactStagingDirectory)
     nobuild: true
     verbosityPack: Minimal
-    versioningScheme: 'byEnvVar'
-    versionEnvVar: 'Build.BuildNumber'
   displayName: Pack
 
 - task: PublishBuildArtifacts@1
