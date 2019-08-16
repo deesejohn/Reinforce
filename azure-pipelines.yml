@@ -47,14 +47,13 @@ steps:
 
 - script: |
     dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
-    ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura;'
+    ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
   displayName: Create Code Coverage Report
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
   displayName: Publish Code Coverage
 
 - task: SonarCloudAnalyze@1
