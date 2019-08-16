@@ -28,6 +28,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'deesejohn_Reinforce'
     projectVersion: '$(Build.BuildNumber)'
+  displayName: SonarCloud Prepare
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -39,10 +40,23 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura'
   displayName: Unit Tests
 
+- script: |
+    dotnet tool install -g dotnet-reportgenerator-globaltool
+    reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines;Cobertura
+  displayName: Create Code Coverage Report
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+    reportDirectory: '$(Build.SourcesDirectory)/CodeCoverage'
+  displayName: Publish Code Coverage
+
 - task: SonarCloudAnalyze@1
+  displayName: SonarCloud Analyze
 
 - task: DotNetCoreCLI@2
   inputs:
