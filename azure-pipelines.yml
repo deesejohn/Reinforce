@@ -28,6 +28,9 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'deesejohn_Reinforce'
     projectVersion: '$(Build.BuildNumber)'
+    extraProperties: |
+      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
+  displayName: SonarCloud Prepare
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -39,10 +42,22 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
   displayName: Unit Tests
 
+- script: |
+    dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
+    ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
+  displayName: Create Code Coverage Report
+
+- task: PublishCodeCoverageResults@1
+  inputs:
+    codeCoverageTool: 'Cobertura'
+    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
+  displayName: Publish Code Coverage
+
 - task: SonarCloudAnalyze@1
+  displayName: SonarCloud Analyze
 
 - task: DotNetCoreCLI@2
   inputs:
