@@ -55,7 +55,7 @@ public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellation
 }
 ```
 
-The list of supported APIs can be found in [src/Reinforce/RestApi](https://github.com/deesejohn/Reinforce/tree/master/src/Reinforce/RestApi)
+The list of supported APIs can be found in [src/Reinforce](https://github.com/deesejohn/Reinforce/tree/master/src/Reinforce)
 
 ### Do you have an issue?
 This project is still a work in progress and any pull requests would be greatly appreciated.
