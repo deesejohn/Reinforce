@@ -26,6 +26,7 @@ namespace AccountApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(404)]
         public async Task<ActionResult<Account>> GetAsync(string id, CancellationToken cancellationToken)
         {
             var account = await _accountService.ReadAsync(id, cancellationToken);
@@ -37,9 +38,11 @@ namespace AccountApi.Controllers
         }
 
         [HttpPatch("{id}")]
-        public Task PatchAsync(string id, [FromBody] AccountUpdate account, CancellationToken cancellationToken)
+        [ProducesResponseType(204)]
+        public async Task<NoContentResult> PatchAsync(string id, [FromBody] AccountUpdate account, CancellationToken cancellationToken)
         {
-            return _accountService.UpdateAsync(id, account, cancellationToken);
+            await _accountService.UpdateAsync(id, account, cancellationToken);
+            return NoContent();
         }
     }
 }
