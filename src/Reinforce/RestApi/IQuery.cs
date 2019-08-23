@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Reinforce.RestApi.Models;
@@ -14,6 +12,13 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IQuery
     {
+        [Get("/services/data/v46.0/query")]
+        [Header("Authorization", "Bearer")]
+        Task<ExplainResponse> GetAsync(
+            [Query] string explain,
+            CancellationToken cancellationToken = default(CancellationToken)
+        );
+
         [Get("/services/data/v46.0/query")]
         [Header("Authorization", "Bearer")]
         Task<QueryResponse<TSObject>> GetAsync<TSObject>(

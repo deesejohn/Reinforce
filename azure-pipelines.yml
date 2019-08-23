@@ -42,7 +42,7 @@ steps:
   inputs:
     command: test
     projects: 'tests/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover'
+    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile="examples/**%2ctests/**"'
   displayName: Unit Tests
 
 - script: |
