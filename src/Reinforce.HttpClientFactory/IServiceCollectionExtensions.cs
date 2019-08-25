@@ -38,6 +38,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ISObjectNamedLayouts>()
                 .AddRestClient<ISObjectPlatformAction>()
                 .AddRestClient<ISObjectQuickActions>()
+                .AddRestClient<ISObjectRelationships>()
                 .AddRestClient<ISObjectRichTextImageRetrieve>()
                 .AddRestClient<ISObjectRows>()
                 .AddRestClient<ISObjectRowsByExternalId>()
