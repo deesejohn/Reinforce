@@ -27,6 +27,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ILimits>()
                 .AddRestClient<IQuery>()
                 .AddRestClient<IQueryAll>()
+                .AddRestClient<IQuickActions>()
                 .AddRestClient<IResourcesByVersion>()
                 .AddRestClient<ISObjectApprovalLayouts>()
                 .AddRestClient<ISObjectBasicInformation>()
