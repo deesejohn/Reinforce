@@ -6,6 +6,11 @@ using RestEase;
 
 namespace Reinforce.RestApi
 {
+    /// <summary>
+    /// Quick Actions
+    /// Returns a list of global actions and object-specific actions.
+    /// https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_quickactions.htm
+    /// </summary>
     public interface IQuickActions
     {
         [Get("/services/data/v46.0/quickActions")]
