@@ -25,6 +25,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IDescribeGlobal>()
                 .AddRestClient<IDescribeLayouts>()
                 .AddRestClient<ILimits>()
+                .AddRestClient<IListViews>()
                 .AddRestClient<IQuery>()
                 .AddRestClient<IQueryAll>()
                 .AddRestClient<IQuickActions>()
