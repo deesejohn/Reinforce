@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -14,38 +15,42 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectRows
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/{id}")]
         [Header("Authorization", "Bearer")]
         Task<TSObject> GetAsync<TSObject>(
             [Path] string sObjectName,
             [Path] string id,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
 
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/{id}")]
         [Header("Authorization", "Bearer")]
         Task<TSObject> GetAsync<TSObject>(
             [Path] string sObjectName,
             [Path] string id,
             [Query] string fields,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
 
-        [Patch("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
+        [Patch("/services/data/{version}/sobjects/{sObjectName}/{id}")]
         [Header("Authorization", "Bearer")]
         Task PatchAsync<TSObject>(
             [Path] string sObjectName,
             [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
 
-        [Delete("/services/data/v46.0/sobjects/{sObjectName}/{id}")]
+        [Delete("/services/data/{version}/sobjects/{sObjectName}/{id}")]
         [Header("Authorization", "Bearer")]
         Task DeleteAsync(
             [Path] string sObjectName,
             [Path] string id,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -15,13 +16,14 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectGetUpdated
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/updated")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/updated")]
         [Header("Authorization", "Bearer")]
         Task<SObjectGetUpdatedResponse> GetAsync(
             [Path] string sObjectName,
             [Query("start", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? startDateAndTime = null,
             [Query("end", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? endDateAndTime = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

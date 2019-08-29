@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -16,11 +17,12 @@ namespace Reinforce.RestApi
 
     public interface ISObjectPlatformAction
     {
-        [Get("/services/data/v46.0/sobjects/PlatformAction")]
+        [Get("/services/data/{version}/sobjects/PlatformAction")]
         [Header("Authorization", "Bearer")]
         Task<ObjectDescribeResponse> GetAsync(
             [Query] string q,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

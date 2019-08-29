@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -13,15 +14,19 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IDescribeLayouts
     {
-        [Get("/services/data/v46.0/sobjects/Global/describe/layouts")]
+        [Get("/services/data/{version}/sobjects/Global/describe/layouts")]
         [Header("Authorization", "Bearer")]
-        Task<IEnumerable<DescribeLayout>> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<IEnumerable<DescribeLayout>> GetAsync(
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
+        );
 
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/layouts")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/describe/layouts")]
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<DescribeLayout>> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

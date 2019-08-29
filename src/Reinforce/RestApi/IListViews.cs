@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -13,19 +14,21 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IListViews
     {
-        [Get("/services/data/v46.0/sobjects/{sobjectType}/listviews")]
+        [Get("/services/data/{version}/sobjects/{sobjectType}/listviews")]
         [Header("Authorization", "Bearer")]
         Task<ListViewsResponse> GetAsync(
             [Path] string sobjectType,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
 
-        [Get("/services/data/v46.0/sobjects/{sobjectType}/listviews/{listViewID}")]
+        [Get("/services/data/{version}/sobjects/{sobjectType}/listviews/{listViewID}")]
         [Header("Authorization", "Bearer")]
         Task<ListView> GetAsync(
             [Path] string sobjectType,
             [Path] string listViewID,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -14,11 +15,12 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IQueryAll
     {
-        [Get("/services/data/v46.0/queryAll")]
+        [Get("/services/data/{version}/queryAll")]
         [Header("Authorization", "Bearer")]
         Task<QueryResponse<TSObject>> GetAsync<TSObject>(
             [Query] string q,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }
