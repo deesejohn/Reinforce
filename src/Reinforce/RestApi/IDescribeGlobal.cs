@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -14,8 +15,11 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IDescribeGlobal
     {
-        [Get("/services/data/v46.0/sobjects")]
+        [Get("/services/data/{version}/sobjects")]
         [Header("Authorization", "Bearer")]
-        Task<DescribeGlobalResponse> GetAsync(CancellationToken cancellationToken = default(CancellationToken));
+        Task<DescribeGlobalResponse> GetAsync(
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
+        );
     }
 }

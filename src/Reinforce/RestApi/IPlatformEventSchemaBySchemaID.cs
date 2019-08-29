@@ -1,5 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -11,12 +12,13 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IPlatformEventSchemaBySchemaID
     {
-        [Get("/services/data/v46.0/event/eventSchema/{schemaId}")]
+        [Get("/services/data/{version}/event/eventSchema/{schemaId}")]
         [Header("Authorization", "Bearer")]
         Task<TPayload> GetAsync<TPayload>(
             [Path] string schemaId,
             [Query] string payloadFormat = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

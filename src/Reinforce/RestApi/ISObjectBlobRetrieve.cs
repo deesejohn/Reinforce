@@ -1,6 +1,7 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -12,13 +13,14 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectBlobRetrieve
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}/{blobField}")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/{id}/{blobField}")]
         [Header("Authorization", "Bearer")]
         Task<HttpResponseMessage> GetAsync(
             [Path] string sObjectName,
             [Path] string id,
             [Path] string blobField,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

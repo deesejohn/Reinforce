@@ -1,6 +1,7 @@
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using RestEase;
 
 namespace Reinforce.RestApi
@@ -12,14 +13,15 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectRichTextImageRetrieve
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/{id}/richTextImageFields/{fieldName}/{contentReferenceId}")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/{id}/richTextImageFields/{fieldName}/{contentReferenceId}")]
         [Header("Authorization", "Bearer")]
         Task<Stream> GetAsync(
             [Path] string sObjectName,
             [Path] string id,
             [Path] string fieldName,
             [Path] string contentReferenceId,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -14,19 +15,21 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectApprovalLayouts
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/approvalLayouts")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/describe/approvalLayouts")]
         [Header("Authorization", "Bearer")]
         Task<ApprovalLayoutsResponse> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
 
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/describe/approvalLayouts/{approvalProcessName}")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/describe/approvalLayouts/{approvalProcessName}")]
         [Header("Authorization", "Bearer")]
         Task<ApprovalLayoutsResponse> GetAsync(
             [Path] string sObjectName,
             [Path] string approvalProcessName,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }

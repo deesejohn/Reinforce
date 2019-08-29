@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -15,13 +16,14 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface ISObjectGetDeleted
     {
-        [Get("/services/data/v46.0/sobjects/{sObjectName}/deleted")]
+        [Get("/services/data/{version}/sobjects/{sObjectName}/deleted")]
         [Header("Authorization", "Bearer")]
         Task<SObjectGetDeleted> GetAsync(
             [Path] string sObjectName,
             [Query("start", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? startDateAndTime = null,
             [Query("end", Format = "yyyy-MM-ddTHH:mm:ss+00:00")] DateTimeOffset? endDateAndTime = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default(CancellationToken),
+            [Path] string version = Api.Version
         );
     }
 }
