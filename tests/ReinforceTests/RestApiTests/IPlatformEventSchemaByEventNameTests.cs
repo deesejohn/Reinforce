@@ -2,7 +2,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
-using ReinforceTests.RestApi;
+using Reinforce.RestApi;
 using Xunit;
 
 namespace ReinforceTests.RestApiTests
