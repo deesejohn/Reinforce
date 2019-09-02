@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
@@ -15,9 +16,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.GetAsync<string>(sObjectName, fieldName, fieldValue);
+                var result = await api.GetAsync<string>(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
             }
         }
 
@@ -27,9 +28,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.PatchAsync(sObjectName, fieldName, fieldValue, sObject);
+                var result = await api.PatchAsync(sObjectName, fieldName, fieldValue, sObject, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
             }
         }
 
@@ -39,8 +40,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                await api.DeleteAsync(sObjectName, fieldName, fieldValue);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
+                await api.DeleteAsync(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
             }
         }
 
@@ -50,9 +51,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.PostAsync(sObjectName, id, sObject);
+                var result = await api.PostAsync(sObjectName, id, sObject, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}");
             }
         }
     }

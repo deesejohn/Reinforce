@@ -16,9 +16,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IListViews>();
-                var result = await api.GetAsync(sobjectType, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(sobjectType, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sobjectType}/listviews");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sobjectType}/listviews");
             }
         }
 
@@ -28,9 +28,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IListViews>();
-                var result = await api.GetAsync(sobjectType, listViewID, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(sobjectType, listViewID, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sobjectType}/listviews/{listViewID}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sobjectType}/listviews/{listViewID}");
             }
         }
     }

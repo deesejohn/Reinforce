@@ -22,9 +22,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRelationships>();
-                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}");
             }
         }
 
@@ -40,9 +40,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRelationships>();
-                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, string.Join(",", fields), CancellationToken.None, "v46.0");
+                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, string.Join(",", fields), CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}?fields={string.Join("%2C", fields)}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}?fields={string.Join("%2C", fields)}");
             }
         }
     }

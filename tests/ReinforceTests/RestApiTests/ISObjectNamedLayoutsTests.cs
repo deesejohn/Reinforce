@@ -1,3 +1,4 @@
+using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using Reinforce.RestApi;
@@ -13,8 +14,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectNamedLayouts>();
-                await api.GetAsync(sObjectName, layoutName);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}");
+                await api.GetAsync(sObjectName, layoutName, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}");
             }
         }
     }

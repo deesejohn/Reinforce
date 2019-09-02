@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Constants;
 using Xunit;
 
 namespace ReinforceTests.RestApiTests
@@ -17,7 +18,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<ISObjectRows>();
                 var result = await api.GetAsync<string>(sObjectName, id);
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/{id}");
             }
         }
 
@@ -27,9 +28,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectRows>();
-                var result = await api.GetAsync<string>(sObjectName, id, "Id,Name", CancellationToken.None, "v46.0");
+                var result = await api.GetAsync<string>(sObjectName, id, "Id,Name", CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}?fields=Id%2CName");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}?fields=Id%2CName");
             }
         }
 
@@ -39,8 +40,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectRows>();
-                await api.PatchAsync(sObjectName, id, sObject);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}");
+                await api.PatchAsync(sObjectName, id, sObject, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}");
             }
         }
 
@@ -50,8 +51,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectRows>();
-                await api.DeleteAsync(sObjectName, id);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}");
+                await api.DeleteAsync(sObjectName, id, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}");
             }
         }
     }

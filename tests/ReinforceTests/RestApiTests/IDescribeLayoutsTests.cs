@@ -17,9 +17,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IDescribeLayouts>();
-                var result = await api.GetAsync(CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath("/services/data/v46.0/sobjects/Global/describe/layouts");
+                handler.ConfirmPath("/services/data/v44.0/sobjects/Global/describe/layouts");
             }
         }
 
@@ -29,9 +29,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IDescribeLayouts>();
-                var result = await api.GetAsync(sObjectName, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/describe/layouts");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/layouts");
             }
         }
     }
