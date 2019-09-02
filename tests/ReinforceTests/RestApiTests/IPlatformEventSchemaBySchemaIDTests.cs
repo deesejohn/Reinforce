@@ -28,7 +28,7 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IPlatformEventSchemaBySchemaID>();
-                var result = await api.GetAsync<string>(schemaId, payloadFormat, CancellationToken.None);
+                var result = await api.GetAsync<string>(schemaId, payloadFormat, CancellationToken.None, "v46.0");
                 result.Should().BeEquivalentTo(expected);
                 handler.ConfirmPath($"/services/data/v46.0/event/eventSchema/{schemaId}?payloadFormat={payloadFormat}");
             }

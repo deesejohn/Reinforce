@@ -14,7 +14,7 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectDescribe>();
-                await api.GetAsync(sObjectName, CancellationToken.None);
+                await api.GetAsync(sObjectName, CancellationToken.None, "v46.0");
                 handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/describe");
             }
         }
