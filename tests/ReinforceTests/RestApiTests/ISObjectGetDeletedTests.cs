@@ -55,7 +55,7 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectGetDeleted>();
-                var result = await api.GetAsync(sObjectName, startDateAndTime, endDateAndTime, CancellationToken.None);
+                var result = await api.GetAsync(sObjectName, startDateAndTime, endDateAndTime, CancellationToken.None, "v46.0");
                 result.Should().BeEquivalentTo(expected);
                 var start = Uri.EscapeDataString(startDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));
                 var end = Uri.EscapeDataString(endDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));

@@ -16,7 +16,7 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IDescribeGlobal>();
-                var result = await api.GetAsync(CancellationToken.None);
+                var result = await api.GetAsync(CancellationToken.None, "v46.0");
                 result.Should().BeEquivalentTo(expected);
                 handler.ConfirmPath("/services/data/v46.0/sobjects");
             }

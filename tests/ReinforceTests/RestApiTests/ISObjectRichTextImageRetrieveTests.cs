@@ -22,7 +22,7 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectRichTextImageRetrieve>();
-                await api.GetAsync(sObjectName, id, fieldName, contentReferenceId, CancellationToken.None);
+                await api.GetAsync(sObjectName, id, fieldName, contentReferenceId, CancellationToken.None, "v46.0");
                 handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/{id}/richTextImageFields/{fieldName}/{contentReferenceId}");
             }
         }
