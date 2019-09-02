@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using Xunit;
 
@@ -18,7 +20,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IQuickActions>();
                 var result = await api.GetAsync();
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/quickActions");
+                handler.ConfirmPath($"/services/data/{Api.Version}/quickActions");
             }
         }
 
@@ -28,8 +30,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IQuickActions>();
-                await api.PostAsync(actionName, expected);
-                handler.ConfirmPath($"/services/data/v46.0/quickActions/{actionName}");
+                await api.PostAsync(actionName, expected, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/quickActions/{actionName}");
             }
         }
     }

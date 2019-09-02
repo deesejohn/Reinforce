@@ -1,8 +1,10 @@
 using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using Xunit;
 
@@ -18,7 +20,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<ISObjectQuickActions>();
                 var result = await api.GetAsync(sObjectName);
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/quickActions");
             }
         }
 
@@ -28,8 +30,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectQuickActions>();
-                await api.GetAsync(sObjectName, actionName);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}");
+                await api.GetAsync(sObjectName, actionName, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/quickActions/{actionName}");
             }
         }
 
@@ -40,7 +42,7 @@ namespace ReinforceTests.RestApiTests
             {
                 var api = handler.SetupApi<ISObjectQuickActions>();
                 await api.PostAsync(sObjectName, actionName, action);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/quickActions/{actionName}");
             }
         }
 
@@ -50,8 +52,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectQuickActions>();
-                await api.DescribeAsync(sObjectName, actionName);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/describe");
+                await api.DescribeAsync(sObjectName, actionName, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/quickActions/{actionName}/describe");
             }
         }
 
@@ -61,8 +63,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectQuickActions>();
-                await api.DefaultValuesAsync(sObjectName, actionName);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues");
+                await api.DefaultValuesAsync(sObjectName, actionName, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues");
             }
         }
 
@@ -72,8 +74,8 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(null))
             {
                 var api = handler.SetupApi<ISObjectQuickActions>();
-                await api.DefaultValuesAsync(sObjectName, actionName, contextId);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues/{contextId}");
+                await api.DefaultValuesAsync(sObjectName, actionName, contextId, CancellationToken.None, "v44.0");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/quickActions/{actionName}/defaultValues/{contextId}");
             }
         }
     }

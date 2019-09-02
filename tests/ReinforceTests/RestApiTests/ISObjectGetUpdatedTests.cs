@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Constants;
 using Reinforce.RestApi.Models;
 using Xunit;
 
@@ -19,7 +20,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<ISObjectGetUpdated>();
                 var result = await api.GetAsync(sObjectName);
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/updated");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/updated");
             }
         }
 
@@ -32,7 +33,7 @@ namespace ReinforceTests.RestApiTests
                 var result = await api.GetAsync(sObjectName, endDateAndTime: endDateAndTime);
                 result.Should().BeEquivalentTo(expected);
                 var end = Uri.EscapeDataString(endDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/updated?end={end}");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/updated?end={end}");
             }
         }
 
@@ -45,7 +46,7 @@ namespace ReinforceTests.RestApiTests
                 var result = await api.GetAsync(sObjectName, startDateAndTime);
                 result.Should().BeEquivalentTo(expected);
                 var start = Uri.EscapeDataString(startDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/updated?start={start}");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{sObjectName}/updated?start={start}");
             }
         }
 
@@ -55,11 +56,11 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<ISObjectGetUpdated>();
-                var result = await api.GetAsync(sObjectName, startDateAndTime, endDateAndTime, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(sObjectName, startDateAndTime, endDateAndTime, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
                 var start = Uri.EscapeDataString(startDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));
                 var end = Uri.EscapeDataString(endDateAndTime.ToString("yyyy-MM-ddTHH:mm:ss+00:00"));
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{sObjectName}/updated?start={start}&end={end}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/updated?start={start}&end={end}");
             }
         }
     }

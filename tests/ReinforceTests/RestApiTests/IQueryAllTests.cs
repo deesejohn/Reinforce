@@ -17,9 +17,9 @@ namespace ReinforceTests.RestApiTests
             {
                 var query = "Select Id, Name From Account Where Active__c = 'Yes'";
                 var api = handler.SetupApi<IQueryAll>();
-                var result = await api.GetAsync<string>(query, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync<string>(query, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath("/services/data/v46.0/queryAll?q=Select+Id%2C+Name+From+Account+Where+Active__c+%3D+%27Yes%27");
+                handler.ConfirmPath("/services/data/v44.0/queryAll?q=Select+Id%2C+Name+From+Account+Where+Active__c+%3D+%27Yes%27");
             }
         }
     }

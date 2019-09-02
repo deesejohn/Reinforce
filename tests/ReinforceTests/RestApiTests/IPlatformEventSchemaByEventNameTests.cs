@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Constants;
 using Xunit;
 
 namespace ReinforceTests.RestApiTests
@@ -17,7 +18,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IPlatformEventSchemaByEventName>();
                 var result = await api.GetAsync<string>(eventName);
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{eventName}/eventSchema");
+                handler.ConfirmPath($"/services/data/{Api.Version}/sobjects/{eventName}/eventSchema");
             }
         }
 
@@ -27,9 +28,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IPlatformEventSchemaByEventName>();
-                var result = await api.GetAsync<string>(eventName, payloadFormat, CancellationToken.None, "v46.0");
+                var result = await api.GetAsync<string>(eventName, payloadFormat, CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v46.0/sobjects/{eventName}/eventSchema?payloadFormat={payloadFormat}");
+                handler.ConfirmPath($"/services/data/v44.0/sobjects/{eventName}/eventSchema?payloadFormat={payloadFormat}");
             }
         }
     }

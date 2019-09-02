@@ -16,9 +16,9 @@ namespace ReinforceTests.RestApiTests
             using(var handler = MockHttpMessageHandler.SetupHandler(expected))
             {
                 var api = handler.SetupApi<IResourcesByVersion>();
-                var result = await api.GetAsync(CancellationToken.None, "v46.0");
+                var result = await api.GetAsync(CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath("/services/data/v46.0");
+                handler.ConfirmPath("/services/data/v44.0");
             }
         }
     }
