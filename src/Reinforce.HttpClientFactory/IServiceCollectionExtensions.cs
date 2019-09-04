@@ -46,6 +46,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ISObjectRichTextImageRetrieve>()
                 .AddRestClient<ISObjectRows>()
                 .AddRestClient<ISObjectRowsByExternalId>()
+                .AddRestClient<ITabs>()
                 .AddRestClient<ITheme>()
                 .AddRestClient<IVersions>();
 
