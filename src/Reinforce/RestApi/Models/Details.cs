@@ -36,7 +36,7 @@ namespace Reinforce.RestApi.Models
         public bool? NamePointing { get; set; }
         public bool? Nillable { get; set; }
         public bool? Permissionable { get; set; }
-        public IEnumerable<dynamic> PicklistValues { get; set; }
+        public IEnumerable<PicklistValue> PicklistValues { get; set; }
         public int? Precision { get; set; }
         public bool? QueryByDistance { get; set; }
         public IEnumerable<dynamic> ReferenceTo { get; set; }

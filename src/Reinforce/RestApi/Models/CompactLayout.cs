@@ -4,7 +4,7 @@ namespace Reinforce.RestApi.Models
 {
     public class CompactLayout
     {
-        public IEnumerable<Action> Actions { get; set; }
+        public IEnumerable<LayoutAction> Actions { get; set; }
         public IEnumerable<FieldItem> FieldItems { get; set; }
         public string Id { get; set; }
         public IEnumerable<ImageItem> ImageItems { get; set; }

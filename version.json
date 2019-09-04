@@ -12,5 +12,5 @@
     "^refs/heads/master$",
     "^refs/heads/v\\d+(?:\\.\\d+)?$"
   ],
-  "version": "0.6"
+  "version": "0.7"
 }
