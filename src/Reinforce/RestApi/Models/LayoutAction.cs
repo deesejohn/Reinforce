@@ -1,9 +1,11 @@
+using System.Collections.Generic;
+
 namespace Reinforce.RestApi.Models
 {
-    public class Action
+    public class LayoutAction
     {
         public bool? Custom { get; set; }
-        public dynamic Icons { get; set; }
+        public IEnumerable<IconItem> Icons { get; set; }
         public string Label { get; set; }
         public string Name { get; set; }
     }
