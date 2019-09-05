@@ -32,6 +32,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IQuery>()
                 .AddRestClient<IQueryAll>()
                 .AddRestClient<IQuickActions>()
+                .AddRestClient<IRecentListViews>()
                 .AddRestClient<IRecentlyViewedItems>()
                 .AddRestClient<IRecordCount>()
                 .AddRestClient<IResourcesByVersion>()
@@ -53,7 +54,8 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ITheme>()
                 .AddRestClient<IVersions>();
 
-        private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder) where TApi : class
+        private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder)
+            where TApi : class
             => builder.AddTypedClient(client => new RestClient(client).For<TApi>());
     }
 }
