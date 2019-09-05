@@ -32,6 +32,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IQuery>()
                 .AddRestClient<IQueryAll>()
                 .AddRestClient<IQuickActions>()
+                .AddRestClient<IRecentlyViewedItems>()
                 .AddRestClient<IRecordCount>()
                 .AddRestClient<IResourcesByVersion>()
                 .AddRestClient<ISObjectApprovalLayouts>()
