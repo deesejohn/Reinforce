@@ -26,6 +26,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IDescribeLayouts>()
                 .AddRestClient<IInvocableActions>()
                 .AddRestClient<ILimits>()
+                .AddRestClient<IListViewResults>()
                 .AddRestClient<IListViews>()
                 .AddRestClient<IPlatformEventSchemaByEventName>()
                 .AddRestClient<IPlatformEventSchemaBySchemaID>()
