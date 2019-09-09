@@ -22,6 +22,7 @@ namespace Reinforce.HttpClientFactory
                 .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://login.salesforce.com"))
                 .AddHttpMessageHandler<AuthenticationHandler>()
                 .AddRestClient<IApexRest>()
+                .AddRestClient<IAppMenu>()
                 .AddRestClient<IDescribeGlobal>()
                 .AddRestClient<IDescribeLayouts>()
                 .AddRestClient<IInvocableActions>()
