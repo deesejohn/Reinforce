@@ -48,5 +48,13 @@ namespace ReinforceTests
                 Content = new StringContent(JsonConvert.SerializeObject(response)),
             });
         }
+
+        public static MockHttpMessageHandler SetupRawHandler(string content)
+        {
+            return new MockHttpMessageHandler(new HttpResponseMessage()
+            {
+                Content = new StringContent(content),
+            });
+        }
     }
 }

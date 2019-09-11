@@ -1,4 +1,4 @@
-namespace Reinforce.RestApi.Constants
+namespace Reinforce.Constants
 {
     public static class Api
     {

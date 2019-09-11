@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Reinforce.RestApi.Constants;
+using Reinforce.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 

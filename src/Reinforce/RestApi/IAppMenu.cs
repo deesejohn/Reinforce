@@ -1,6 +1,6 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Reinforce.RestApi.Constants;
+using Reinforce.Constants;
 using Reinforce.RestApi.Models;
 using RestEase;
 
@@ -14,14 +14,14 @@ namespace Reinforce.RestApi
     /// </summary>
     public interface IAppMenu
     {
-        [Get("/services/data/{version}/appMenu/AppSwitcher/")]
+        [Get("/services/data/{version}/appMenu/AppSwitcher")]
         [Header("Authorization", "Bearer")]
         Task<AppMenuItemsResponse> GetAppSwitcherAsync(
             CancellationToken cancellationToken = default(CancellationToken),
             [Path] string version = Api.Version
         );
 
-        [Get("/services/data/{version}/appMenu/Salesforce1/")]
+        [Get("/services/data/{version}/appMenu/Salesforce1")]
         [Header("Authorization", "Bearer")]
         Task<AppMenuItemsResponse> GetSalesforce1Async(
             CancellationToken cancellationToken = default(CancellationToken),
