@@ -25,6 +25,7 @@ namespace Reinforce.HttpClientFactory
                 .AddApexRest()
                 .AddBulkApi2()
                 .AddRestApi();
+
         private static IHttpClientBuilder AddApexRest(this IHttpClientBuilder builder)
             => builder.AddRestClient<IApexRest>();
 
@@ -76,6 +77,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ITabs>()
                 .AddRestClient<ITheme>()
                 .AddRestClient<IVersions>();
+
         private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder)
             where TApi : class
             => builder.AddTypedClient(client => new RestClient(client).For<TApi>());
