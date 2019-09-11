@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
-using Reinforce.RestApi.Constants;
+using Reinforce.Constants;
 using Reinforce.RestApi.Models;
 using Xunit;
 
@@ -19,7 +19,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IAppMenu>();
                 var result = await api.GetAppSwitcherAsync();
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/{Api.Version}/appMenu/AppSwitcher/");
+                handler.ConfirmPath($"/services/data/{Api.Version}/appMenu/AppSwitcher");
             }
         }
 
@@ -31,7 +31,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IAppMenu>();
                 var result = await api.GetAppSwitcherAsync(CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/appMenu/AppSwitcher/");
+                handler.ConfirmPath($"/services/data/v44.0/appMenu/AppSwitcher");
             }
         }
 
@@ -43,7 +43,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IAppMenu>();
                 var result = await api.GetSalesforce1Async();
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/{Api.Version}/appMenu/Salesforce1/");
+                handler.ConfirmPath($"/services/data/{Api.Version}/appMenu/Salesforce1");
             }
         }
 
@@ -55,7 +55,7 @@ namespace ReinforceTests.RestApiTests
                 var api = handler.SetupApi<IAppMenu>();
                 var result = await api.GetSalesforce1Async(CancellationToken.None, "v44.0");
                 result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/appMenu/Salesforce1/");
+                handler.ConfirmPath($"/services/data/v44.0/appMenu/Salesforce1");
             }
         }
     }

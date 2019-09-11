@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoFixture.Xunit2;
 using FluentAssertions;
 using Reinforce.RestApi;
-using Reinforce.RestApi.Constants;
+using Reinforce.Constants;
 using Reinforce.RestApi.Models;
 using Xunit;
 

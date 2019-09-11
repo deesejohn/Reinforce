@@ -10,5 +10,6 @@ namespace AccountApi.Services
         Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken);
         Task<Account> ReadAsync(string id, CancellationToken cancellationToken);
         Task UpdateAsync(string id, AccountUpdate account, CancellationToken cancellationToken);
+        Task UpdateAsync(IEnumerable<Account> accounts, CancellationToken cancellationToken);
     }
 }

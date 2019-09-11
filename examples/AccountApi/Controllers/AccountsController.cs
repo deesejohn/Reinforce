@@ -37,9 +37,17 @@ namespace AccountApi.Controllers
             return Ok(account);
         }
 
+        [HttpPatch]
+        [ProducesResponseType(204)]
+        public async Task<IActionResult> PatchAsync([FromBody] IEnumerable<Account> accounts, CancellationToken cancellationToken)
+        {
+            await _accountService.UpdateAsync(accounts, cancellationToken);
+            return NoContent();
+        }
+
         [HttpPatch("{id}")]
         [ProducesResponseType(204)]
-        public async Task<NoContentResult> PatchAsync(string id, [FromBody] AccountUpdate account, CancellationToken cancellationToken)
+        public async Task<IActionResult> PatchAsync(string id, [FromBody] AccountUpdate account, CancellationToken cancellationToken)
         {
             await _accountService.UpdateAsync(id, account, cancellationToken);
             return NoContent();

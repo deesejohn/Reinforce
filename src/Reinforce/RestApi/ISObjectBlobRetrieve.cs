@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using Reinforce.RestApi.Constants;
+using Reinforce.Constants;
 using RestEase;
 
 namespace Reinforce.RestApi
