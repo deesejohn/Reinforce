@@ -58,4 +58,7 @@ public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellation
 The list of supported APIs can be found in [src/Reinforce](https://github.com/deesejohn/Reinforce/tree/master/src/Reinforce)
 
 ### Do you have an issue?
-This project is still a work in progress and any pull requests would be greatly appreciated.
+Please create an issue for any bug you find, including sample code to re-create the issue will ease the process. This project is still a work in progress and any pull requests would be greatly appreciated.
+
+### Contributing
+See an issue open that you think you can help with? Please comment on the issue that you plan to contribute it and include unit tests for the included feature when you open a pull request. Don't see an issue for a feature you'd like? Open an issue first and have a discussion before writing any code. This library attempts to be an unopinionated set of interfaces, so many advance helper features, implementations, and/or abstractions may be rejected.
