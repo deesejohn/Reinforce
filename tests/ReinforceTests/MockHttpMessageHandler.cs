@@ -27,9 +27,9 @@ namespace ReinforceTests
             return ResponseMessage;
         }
 
-        public void ConfirmPath(string path)
+        public void ConfirmPath(string path, string q = "")
         {
-            Request.RequestUri.PathAndQuery.Should().Be(path);
+            Request.RequestUri.PathAndQuery.Should().Be(path + Uri.EscapeDataString(q).Replace("%20", "+"));
         }
 
         public TApi SetupApi<TApi>()
