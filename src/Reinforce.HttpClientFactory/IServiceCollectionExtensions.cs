@@ -60,6 +60,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IRecentlyViewedItems>()
                 .AddRestClient<IRecordCount>()
                 .AddRestClient<IResourcesByVersion>()
+                .AddRestClient<ISearch>()
                 .AddRestClient<ISObjectApprovalLayouts>()
                 .AddRestClient<ISObjectBasicInformation>()
                 .AddRestClient<ISObjectBlobRetrieve>()
