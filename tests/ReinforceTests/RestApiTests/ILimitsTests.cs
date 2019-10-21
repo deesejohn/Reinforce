@@ -14,13 +14,11 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ILimits(IDictionary<string, Limit> expected)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ILimits>();
-                var result = await api.GetAsync(CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath("/services/data/v44.0/limits");
-            }            
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ILimits>();
+            var result = await api.GetAsync(CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath("/services/data/v44.0/limits");
         }
     }
 }

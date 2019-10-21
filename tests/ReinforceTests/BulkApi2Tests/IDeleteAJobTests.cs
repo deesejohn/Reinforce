@@ -11,12 +11,10 @@ namespace ReinforceTests.BulkApi2Tests
         [Theory, AutoData]
         public async Task IDeleteAJob(string jobID)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<IDeleteAJob>();
-                await api.DeleteAsync(jobID);
-                handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<IDeleteAJob>();
+            await api.DeleteAsync(jobID);
+            handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}");
         }
     }
 }

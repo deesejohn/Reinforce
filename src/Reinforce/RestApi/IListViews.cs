@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<ListViewsResponse> GetAsync(
             [Path] string sobjectType,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -27,7 +27,7 @@ namespace Reinforce.RestApi
         Task<ListView> GetAsync(
             [Path] string sobjectType,
             [Path] string listViewID,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

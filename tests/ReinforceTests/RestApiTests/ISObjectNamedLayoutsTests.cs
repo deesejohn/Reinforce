@@ -11,12 +11,10 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ISObjectNamedLayouts(string sObjectName, string layoutName)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<ISObjectNamedLayouts>();
-                await api.GetAsync(sObjectName, layoutName, CancellationToken.None, "v44.0");
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<ISObjectNamedLayouts>();
+            await api.GetAsync(sObjectName, layoutName, CancellationToken.None, "v44.0");
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/namedLayouts/{layoutName}");
         }
     }
 }

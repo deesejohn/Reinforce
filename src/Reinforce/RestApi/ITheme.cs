@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
         [Get("/services/data/{version}/theme")]
         [Header("Authorization", "Bearer")]
         Task<ThemeResponse> GetAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

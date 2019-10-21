@@ -14,7 +14,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Path] string relationshipFieldName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -25,7 +25,7 @@ namespace Reinforce.RestApi
             [Path] string id,
             [Path] string relationshipFieldName,
             [Query] string fields,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

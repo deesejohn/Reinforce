@@ -19,7 +19,7 @@ namespace Reinforce.BulkApi2
             [Query] bool? isPkChunkingEnabled = null,
             [Query] JobTypeEnum? jobType = null,
             [Query] string queryLocator = null,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         Task<TPayload> GetAsync<TPayload>(
             [Path] string eventName,
             [Query] string payloadFormat = null,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

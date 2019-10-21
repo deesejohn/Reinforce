@@ -11,12 +11,10 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ISObjectBlobRetrieve(string sObjectName, string id, string blobField)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<ISObjectBlobRetrieve>();
-                await api.GetAsync(sObjectName, id, blobField, CancellationToken.None, "v44.0");
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{blobField}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<ISObjectBlobRetrieve>();
+            await api.GetAsync(sObjectName, id, blobField, CancellationToken.None, "v44.0");
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{blobField}");
         }
     }
 }

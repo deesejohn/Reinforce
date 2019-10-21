@@ -13,13 +13,11 @@ namespace ReinforceTests.BulkApi2Tests
         [Theory, AutoData]
         public async Task ICloseOrAbortAJob(JobInfo expected, string jobID, CloseOrAbortAJobRequest body)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ICloseOrAbortAJob>();
-                var result = await api.PatchAsync(jobID, body);
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ICloseOrAbortAJob>();
+            var result = await api.PatchAsync(jobID, body);
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}");
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
         Task<ListViewDescribeResponse> GetAsync(
             [Path] string sobjectType,
             [Path] string queryLocator,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

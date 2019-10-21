@@ -19,7 +19,7 @@ namespace Reinforce.BulkApi2
         [Header("Authorization", "Bearer")]
         Task<JobInfo> PostAsync(
             [Body] CreateAJobRequest body,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

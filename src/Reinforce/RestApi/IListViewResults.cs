@@ -20,7 +20,7 @@ namespace Reinforce.RestApi
             [Path] string listViewID,
             [Query] int? limit = null,
             [Query] int? offset = null,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

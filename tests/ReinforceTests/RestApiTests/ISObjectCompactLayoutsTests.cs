@@ -13,13 +13,11 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ISObjectCompactLayouts(CompactLayoutsResponse expected, string sObjectName)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectCompactLayouts>();
-                var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/compactLayouts");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectCompactLayouts>();
+            var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/compactLayouts");
         }
     }
 }

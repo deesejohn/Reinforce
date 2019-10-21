@@ -19,7 +19,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Path] string blobField,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

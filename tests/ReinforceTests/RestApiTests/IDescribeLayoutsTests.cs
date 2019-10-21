@@ -14,25 +14,21 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task IDescribeLayouts(IEnumerable<DescribeLayout> expected)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<IDescribeLayouts>();
-                var result = await api.GetAsync(CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath("/services/data/v44.0/sobjects/Global/describe/layouts");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IDescribeLayouts>();
+            var result = await api.GetAsync(CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath("/services/data/v44.0/sobjects/Global/describe/layouts");
         }
 
         [Theory, AutoData]
         public async Task IDescribeLayoutsBySObjectName(IEnumerable<DescribeLayout> expected, string sObjectName)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<IDescribeLayouts>();
-                var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/layouts");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IDescribeLayouts>();
+            var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/layouts");
         }
     }
 }

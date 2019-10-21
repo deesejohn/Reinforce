@@ -13,48 +13,40 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ISObjectRowsByExternalId(string expected, string sObjectName, string fieldName, string fieldValue)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.GetAsync<string>(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRowsByExternalId>();
+            var result = await api.GetAsync<string>(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
         }
 
         [Theory, AutoData]
         public async Task ISObjectRowsByExternalIdPatch(SuccessResponse expected, string sObjectName, string fieldName, string fieldValue, string sObject)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.PatchAsync(sObjectName, fieldName, fieldValue, sObject, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRowsByExternalId>();
+            var result = await api.PatchAsync(sObjectName, fieldName, fieldValue, sObject, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
         }
 
         [Theory, AutoData]
         public async Task ISObjectRowsByExternalIdDelete(string expected, string sObjectName, string fieldName, string fieldValue)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                await api.DeleteAsync(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRowsByExternalId>();
+            await api.DeleteAsync(sObjectName, fieldName, fieldValue, CancellationToken.None, "v44.0");
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{fieldName}/{fieldValue}");
         }
 
         [Theory, AutoData]
         public async Task ISObjectRowsByExternalIdPost(SuccessResponse expected, string sObjectName, string id, string sObject)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRowsByExternalId>();
-                var result = await api.PostAsync(sObjectName, id, sObject, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRowsByExternalId>();
+            var result = await api.PostAsync(sObjectName, id, sObject, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}");
         }
     }
 }
