@@ -16,7 +16,7 @@ namespace Reinforce.BulkApi2
         [Header("Authorization", "Bearer")]
         Task<string> GetAsync(
             [Path] string jobID,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

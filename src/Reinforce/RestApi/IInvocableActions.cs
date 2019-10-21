@@ -19,14 +19,14 @@ namespace Reinforce.RestApi
         [Get("/services/data/{version}/actions")]
         [Header("Authorization", "Bearer")]
         Task<IDictionary<string, string>> GetAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
         [Get("/services/data/{version}/actions/custom")]
         [Header("Authorization", "Bearer")]
         Task<IDictionary<string, string>> GetCustomAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -34,7 +34,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<ActionsResponse> GetCustomAsync(
             [Path] string type,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -43,7 +43,7 @@ namespace Reinforce.RestApi
         Task<InvocableAction> GetCustomAsync(
             [Path] string type,
             [Path] string action,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -52,14 +52,14 @@ namespace Reinforce.RestApi
         Task<InvokedActionResponse<TResponse>> PostCustomAsync<TRequest, TResponse>(
             [Path(UrlEncode = false)] string route,
             [Body] TRequest body,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
         [Get("/services/data/{version}/actions/standard")]
         [Header("Authorization", "Bearer")]
         Task<ActionsResponse> GetStandardAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -67,7 +67,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<InvocableAction> GetStandardAsync(
             [Path] string action,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -76,7 +76,7 @@ namespace Reinforce.RestApi
         Task<InvokedActionResponse<TResponse>> PostStandardAsync<TRequest, TResponse>(
             [Path(UrlEncode = false)] string action,
             [Body] TRequest body,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

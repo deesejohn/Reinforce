@@ -15,23 +15,19 @@ namespace ReinforceTests.BulkApi2Tests
         [Theory, AutoData]
         public async Task IUploadJobData(string jobID)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<IUploadJobData>();
-                await api.PutAsync(jobID, Encoding.ASCII.GetBytes(CSV));
-                handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}/batches");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<IUploadJobData>();
+            await api.PutAsync(jobID, Encoding.ASCII.GetBytes(CSV));
+            handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}/batches");
         }
 
         [Theory, AutoData]
         public async Task IUploadJobData_ApiVersion(string jobID)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<IUploadJobData>();
-                await api.PutAsync(jobID, Encoding.ASCII.GetBytes(CSV), CancellationToken.None, "v44.0");
-                handler.ConfirmPath($"/services/data/v44.0/jobs/ingest/{jobID}/batches");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<IUploadJobData>();
+            await api.PutAsync(jobID, Encoding.ASCII.GetBytes(CSV), CancellationToken.None, "v44.0");
+            handler.ConfirmPath($"/services/data/v44.0/jobs/ingest/{jobID}/batches");
         }
     }
 }

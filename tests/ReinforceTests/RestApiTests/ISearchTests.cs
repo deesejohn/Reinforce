@@ -19,25 +19,21 @@ namespace ReinforceTests.RestApiTests
         [InlineAutoData("FIND {\"Joe Smith\" OR \"Joe Smythe\"} IN Name Fields RETURNING lead")]
         public async Task ISearch(string q, SearchResponse<string> expected)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISearch>();
-                var result = await api.GetAsync<string>(q);
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/{Api.Version}/search?q=", q);
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISearch>();
+            var result = await api.GetAsync<string>(q);
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/{Api.Version}/search?q=", q);
         }
 
         [Theory, AutoData]
         public async Task ISearch_ApiVersion(string q, SearchResponse<string> expected)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISearch>();
-                var result = await api.GetAsync<string>(q, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/search?q=", q);
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISearch>();
+            var result = await api.GetAsync<string>(q, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/search?q=", q);
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Reinforce.RestApi
             [Path] string id,
             [Path] string fieldName,
             [Path] string contentReferenceId,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

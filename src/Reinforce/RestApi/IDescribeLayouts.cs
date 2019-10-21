@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         [Get("/services/data/{version}/sobjects/Global/describe/layouts")]
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<DescribeLayout>> GetAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -25,7 +25,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<DescribeLayout>> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

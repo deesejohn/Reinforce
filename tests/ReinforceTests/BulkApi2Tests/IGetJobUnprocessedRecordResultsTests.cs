@@ -15,25 +15,21 @@ namespace ReinforceTests.BulkApi2Tests
         [Theory, AutoData]
         public async Task IGetJobUnprocessedRecordResults(string jobID)
         {
-            using(var handler = MockHttpMessageHandler.SetupRawHandler(CSV))
-            {
-                var api = handler.SetupApi<IGetJobUnprocessedRecordResults>();
-                var result = await api.GetAsync(jobID);
-                result.Should().BeEquivalentTo(CSV);
-                handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}/unprocessedrecords");
-            }
+            using var handler = MockHttpMessageHandler.SetupRawHandler(CSV);
+            var api = handler.SetupApi<IGetJobUnprocessedRecordResults>();
+            var result = await api.GetAsync(jobID);
+            result.Should().BeEquivalentTo(CSV);
+            handler.ConfirmPath($"/services/data/{Api.Version}/jobs/ingest/{jobID}/unprocessedrecords");
         }
 
         [Theory, AutoData]
         public async Task IGetJobUnprocessedRecordResults_ApiVersion(string jobID)
         {
-            using(var handler = MockHttpMessageHandler.SetupRawHandler(CSV))
-            {
-                var api = handler.SetupApi<IGetJobUnprocessedRecordResults>();
-                var result = await api.GetAsync(jobID, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(CSV);
-                handler.ConfirmPath($"/services/data/v44.0/jobs/ingest/{jobID}/unprocessedrecords");
-            }
+            using var handler = MockHttpMessageHandler.SetupRawHandler(CSV);
+            var api = handler.SetupApi<IGetJobUnprocessedRecordResults>();
+            var result = await api.GetAsync(jobID, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(CSV);
+            handler.ConfirmPath($"/services/data/v44.0/jobs/ingest/{jobID}/unprocessedrecords");
         }
     }
 }

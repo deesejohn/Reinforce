@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<ExplainResponse> GetAsync(
             [Query] string explain,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -25,7 +25,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<QueryResponse<TSObject>> GetAsync<TSObject>(
             [Query] string q,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

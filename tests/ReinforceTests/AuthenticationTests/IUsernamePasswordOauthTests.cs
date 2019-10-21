@@ -22,26 +22,24 @@ namespace ReinforceTests.AuthenticationTests
             string password
         )
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<IUsernamePasswordOauth>();
-                var result = await api.PostAsync(
-                    grantType,
-                    clientId,
-                    clientSecret,
-                    username,
-                    password,
-                    CancellationToken.None
-                );
-                result.Should().BeEquivalentTo(expected);
-                var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
-                query["grant_type"] = grantType;
-                query["client_id"] = clientId;
-                query["client_secret"] = clientSecret;
-                query["username"] = username;
-                query["password"] = password;
-                handler.ConfirmPath($"/services/oauth2/token?{query}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IUsernamePasswordOauth>();
+            var result = await api.PostAsync(
+                grantType,
+                clientId,
+                clientSecret,
+                username,
+                password,
+                CancellationToken.None
+            );
+            result.Should().BeEquivalentTo(expected);
+            var query = System.Web.HttpUtility.ParseQueryString(string.Empty);
+            query["grant_type"] = grantType;
+            query["client_id"] = clientId;
+            query["client_secret"] = clientSecret;
+            query["username"] = username;
+            query["password"] = password;
+            handler.ConfirmPath($"/services/oauth2/token?{query}");
         }
     }
 }

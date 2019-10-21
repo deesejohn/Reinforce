@@ -19,12 +19,10 @@ namespace ReinforceTests.RestApiTests
             string contentReferenceId
         )
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(null))
-            {
-                var api = handler.SetupApi<ISObjectRichTextImageRetrieve>();
-                await api.GetAsync(sObjectName, id, fieldName, contentReferenceId, CancellationToken.None, "v44.0");
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/richTextImageFields/{fieldName}/{contentReferenceId}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(null);
+            var api = handler.SetupApi<ISObjectRichTextImageRetrieve>();
+            await api.GetAsync(sObjectName, id, fieldName, contentReferenceId, CancellationToken.None, "v44.0");
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/richTextImageFields/{fieldName}/{contentReferenceId}");
         }
     }
 }

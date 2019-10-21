@@ -8,7 +8,7 @@ namespace Reinforce.RestApi
 {
     /// <summary>
     /// SObject Rows by External ID
-    /// Creates new records or updates existing records (upserts records) based on the value of a specified 
+    /// Creates new records or updates existing records (upsert records) based on the value of a specified 
     /// external ID field.
     /// https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/resources_sobject_upsert.htm
     /// </summary>
@@ -20,7 +20,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
         
@@ -30,7 +30,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -41,7 +41,7 @@ namespace Reinforce.RestApi
             [Path] string fieldName,
             [Path] string fieldValue,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -51,7 +51,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string fieldName,
             [Path] string fieldValue,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -61,7 +61,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string id,
             [Body] TSObject sObject,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

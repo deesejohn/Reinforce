@@ -13,13 +13,11 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task IVersions(IEnumerable<VersionResponse> expected)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<IVersions>();
-                var result = await api.GetAsync();
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IVersions>();
+            var result = await api.GetAsync();
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data");
         }
     }
 }

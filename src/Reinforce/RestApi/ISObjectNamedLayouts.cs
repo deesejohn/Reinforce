@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         Task<dynamic> GetAsync(
             [Path] string sObjectName,
             [Path] string layoutName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

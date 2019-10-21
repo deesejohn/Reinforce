@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<RecordCountResponse> GetAsync(
             [Query] string sObjects = null,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

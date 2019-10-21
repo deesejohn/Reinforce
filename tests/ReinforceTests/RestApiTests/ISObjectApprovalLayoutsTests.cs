@@ -13,25 +13,21 @@ namespace ReinforceTests.RestApiTests
         [Theory, AutoData]
         public async Task ISObjectApprovalLayouts(ApprovalLayoutsResponse expected, string sObjectName)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectApprovalLayouts>();
-                var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/approvalLayouts");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectApprovalLayouts>();
+            var result = await api.GetAsync(sObjectName, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/approvalLayouts");
         }
 
         [Theory, AutoData]
         public async Task ISObjectApprovalLayoutsByApprovalProcessName(ApprovalLayoutsResponse expected, string sObjectName, string approvalProcessName)
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectApprovalLayouts>();
-                var result = await api.GetAsync(sObjectName, approvalProcessName, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/approvalLayouts/{approvalProcessName}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectApprovalLayouts>();
+            var result = await api.GetAsync(sObjectName, approvalProcessName, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/describe/approvalLayouts/{approvalProcessName}");
         }
     }
 }

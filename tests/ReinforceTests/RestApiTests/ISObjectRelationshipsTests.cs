@@ -19,13 +19,11 @@ namespace ReinforceTests.RestApiTests
             string relationshipFieldName
         )
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRelationships>();
-                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRelationships>();
+            var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}");
         }
 
         [Theory, AutoData]
@@ -37,13 +35,11 @@ namespace ReinforceTests.RestApiTests
             string[] fields
         )
         {
-            using(var handler = MockHttpMessageHandler.SetupHandler(expected))
-            {
-                var api = handler.SetupApi<ISObjectRelationships>();
-                var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, string.Join(",", fields), CancellationToken.None, "v44.0");
-                result.Should().BeEquivalentTo(expected);
-                handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}?fields={string.Join("%2C", fields)}");
-            }
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<ISObjectRelationships>();
+            var result = await api.GetAsync<string>(sObjectName, id, relationshipFieldName, string.Join(",", fields), CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/sobjects/{sObjectName}/{id}/{relationshipFieldName}?fields={string.Join("%2C", fields)}");
         }
     }
 }

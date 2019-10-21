@@ -20,7 +20,7 @@ namespace Reinforce.BulkApi2
         Task<JobInfo> PatchAsync(
             [Path] string jobID,
             [Body] CloseOrAbortAJobRequest body,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

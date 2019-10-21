@@ -21,7 +21,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<RecentlyViewedItem>> GetAsync(
             [Query] int? limit = null,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

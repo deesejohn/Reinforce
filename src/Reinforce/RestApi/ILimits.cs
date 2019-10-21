@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
         [Get("/services/data/{version}/limits")]
         [Header("Authorization", "Bearer")]
         Task<IDictionary<string, Limit>> GetAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

@@ -18,7 +18,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<QuickAction>> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -27,7 +27,7 @@ namespace Reinforce.RestApi
         Task<dynamic> GetAsync(
             [Path] string sObjectName,
             [Path] string actionName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -37,7 +37,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string actionName,
             [Body] TAction action,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -46,7 +46,7 @@ namespace Reinforce.RestApi
         Task<dynamic> DescribeAsync(
             [Path] string sObjectName,
             [Path] string actionName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -55,7 +55,7 @@ namespace Reinforce.RestApi
         Task<dynamic> DefaultValuesAsync(
             [Path] string sObjectName,
             [Path] string actionName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -65,7 +65,7 @@ namespace Reinforce.RestApi
             [Path] string sObjectName,
             [Path] string actionName,
             [Path] string contextId,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

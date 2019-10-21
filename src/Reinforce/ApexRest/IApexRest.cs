@@ -15,14 +15,14 @@ namespace Reinforce.ApexRest
         [Header("Authorization", "Bearer")]
         Task DeleteAsync(
             [Path(UrlEncode = false)] string path,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         );
 
         [Get("/services/apexrest/{path}")]
         [Header("Authorization", "Bearer")]
         Task<TResponse> GetAsync<TResponse>(
             [Path(UrlEncode = false)] string path,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         );
 
         [Patch("/services/apexrest/{path}")]
@@ -30,7 +30,7 @@ namespace Reinforce.ApexRest
         Task PatchAsync<TRequest>(
             [Path(UrlEncode = false)] string path,
             [Body] TRequest request = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         ) where TRequest : class;
 
         [Post("/services/apexrest/{path}")]
@@ -38,7 +38,7 @@ namespace Reinforce.ApexRest
         Task<TResponse> PostAsync<TRequest, TResponse>(
             [Path(UrlEncode = false)] string path,
             [Body] TRequest request = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         ) where TRequest : class;
 
         [Put("/services/apexrest/{path}")]
@@ -46,7 +46,7 @@ namespace Reinforce.ApexRest
         Task PutAsync<TRequest>(
             [Path(UrlEncode = false)] string path,
             [Body] TRequest request = null,
-            CancellationToken cancellationToken = default(CancellationToken)
+            CancellationToken cancellationToken = default
         ) where TRequest : class;
     }
 }

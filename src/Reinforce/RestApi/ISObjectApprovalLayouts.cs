@@ -19,7 +19,7 @@ namespace Reinforce.RestApi
         [Header("Authorization", "Bearer")]
         Task<ApprovalLayoutsResponse> GetAsync(
             [Path] string sObjectName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -28,7 +28,7 @@ namespace Reinforce.RestApi
         Task<ApprovalLayoutsResponse> GetAsync(
             [Path] string sObjectName,
             [Path] string approvalProcessName,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
         [Get("/services/data/{version}/quickActions")]
         [Header("Authorization", "Bearer")]
         Task<IEnumerable<QuickAction>> GetAsync(
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
 
@@ -26,7 +26,7 @@ namespace Reinforce.RestApi
         Task PostAsync<TAction>(
             [Path] string actionName,
             [Body] TAction action,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
     }

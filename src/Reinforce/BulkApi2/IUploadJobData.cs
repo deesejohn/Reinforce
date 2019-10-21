@@ -19,7 +19,7 @@ namespace Reinforce.BulkApi2
         Task PutAsync(
             [Path] string jobID,
             [Body] byte[] body,
-            CancellationToken cancellationToken = default(CancellationToken),
+            CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         ); 
     }
