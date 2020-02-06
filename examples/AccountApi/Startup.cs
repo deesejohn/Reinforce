@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Reinforce.HttpClientFactory;
 using Reinforce.HttpClientFactory.Authentication;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace AccountApi
 {
@@ -25,7 +25,7 @@ namespace AccountApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Accounts API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Accounts API", Version = "v1" });
             });
             services.AddReinforce()
                 .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
