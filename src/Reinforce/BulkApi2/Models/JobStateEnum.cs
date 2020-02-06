@@ -10,6 +10,7 @@ namespace Reinforce.BulkApi2.Models
         Open,
         UploadComplete,
         Aborted,
+        InProgress,
         JobComplete,
         Failed
     }
