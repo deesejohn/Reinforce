@@ -35,5 +35,26 @@ namespace ReinforceTests.RestApiTests
             result.Should().BeEquivalentTo(expected);
             handler.ConfirmPath("/services/data/v44.0/query?q=", q);
         }
+
+        [Theory, AutoData]
+        public async Task IQuery_GetNextByIdAsync(string queryIdentifier, QueryResponse<string> expected)
+        {
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IQuery>();
+            var result = await api.GetNextByIdAsync<string>(queryIdentifier, CancellationToken.None, "v44.0");
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath($"/services/data/v44.0/query/{queryIdentifier}");
+        }
+
+        [Theory]
+        [InlineAutoData("/services/data/v44.0/query/someid-2000")]
+        public async Task IQuery_GetNextByUrlAsync(string url, QueryResponse<string> expected)
+        {
+            using var handler = MockHttpMessageHandler.SetupHandler(expected);
+            var api = handler.SetupApi<IQuery>();
+            var result = await api.GetNextByUrlAsync<string>(url);
+            result.Should().BeEquivalentTo(expected);
+            handler.ConfirmPath(url);
+        }
     }
 }
