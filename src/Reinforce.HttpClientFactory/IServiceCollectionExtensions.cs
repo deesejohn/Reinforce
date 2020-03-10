@@ -77,7 +77,8 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ISObjectRowsByExternalId>()
                 .AddRestClient<ITabs>()
                 .AddRestClient<ITheme>()
-                .AddRestClient<IVersions>();
+                .AddRestClient<IVersions>()
+                .AddRestClient<IComposite>();
 
         private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder)
             where TApi : class

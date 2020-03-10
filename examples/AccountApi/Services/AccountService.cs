@@ -10,6 +10,7 @@ using Reinforce.BulkApi2;
 using Reinforce.BulkApi2.Models;
 using System.IO;
 using CsvHelper;
+using Reinforce.RestApi.Models;
 
 namespace AccountApi.Services
 {
@@ -20,13 +21,15 @@ namespace AccountApi.Services
         private readonly IQuery _query;
         private readonly ISObjectRows _sObjectRows;
         private readonly IUploadJobData _uploadJobData;
+        private readonly IComposite _composite;
 
         public AccountService(
             ICloseOrAbortAJob closeOrAbortAJob,
             ICreateAJob createAJob,
             IQuery query,
             ISObjectRows sObjectRows,
-            IUploadJobData uploadJobData
+            IUploadJobData uploadJobData,
+            IComposite composite
         )
         {
             _closeOrAbortAJob = closeOrAbortAJob ?? throw new ArgumentNullException(nameof(closeOrAbortAJob));
@@ -34,6 +37,7 @@ namespace AccountApi.Services
             _query = query ?? throw new ArgumentNullException(nameof(query));
             _sObjectRows = sObjectRows ?? throw new ArgumentNullException(nameof(sObjectRows));
             _uploadJobData = uploadJobData ?? throw new ArgumentNullException(nameof(uploadJobData));
+            _composite = composite;
         }
 
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
@@ -73,6 +77,34 @@ namespace AccountApi.Services
                 await _uploadJobData.PutAsync(job.Id, memoryStream.ToArray(), cancellationToken);
             }
             await _closeOrAbortAJob.PatchAsync(job.Id, new CloseOrAbortAJobRequest(JobStateEnum.UploadComplete), cancellationToken);
+        }
+
+        public async Task<CompositeResponse> Composite(CancellationToken cancellationToken)
+        {
+            var compRequest = new CompositeRequest()
+            {
+                items = new List<CompositeRequestItem>()
+                {
+                    new CompositeRequestItem()
+                    {
+                        url = "/services/data/v47.0/sobjects/account/0013O00000DXklUQAT",
+                        method = "GET",
+                        referenceId = "1"
+                    }
+                    ,
+                    new CompositeRequestItem()
+                    {
+                        url = "/services/data/v47.0/sobjects/account/0013O00000DXklUQAT",
+                        method = "GET",
+                        referenceId = "2"
+                    }
+                }
+            };
+
+            var resp = await _composite.PostAsync<CompositeResponse>(compRequest, cancellationToken);
+
+            return resp;
+
         }
     }
 }
