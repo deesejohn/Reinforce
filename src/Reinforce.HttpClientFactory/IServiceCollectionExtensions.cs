@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Reinforce.ApexRest;
 using Reinforce.BulkApi2;
@@ -19,18 +20,19 @@ namespace Reinforce.HttpClientFactory
 
         private static IHttpClientBuilder AddRestApis(this IServiceCollection services)
             => services
-                .AddHttpClient(nameof(IReinforceBuilder))
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://login.salesforce.com"))
-                .AddHttpMessageHandler<AuthenticationHandler>()
                 .AddApexRest()
                 .AddBulkApi2()
-                .AddRestApi();
+                .AddRestApi()
+                .AddHttpClient(nameof(IReinforceBuilder))
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://login.salesforce.com"))
+                .AddHttpMessageHandler<AuthenticationHandler>();
 
-        private static IHttpClientBuilder AddApexRest(this IHttpClientBuilder builder)
-            => builder.AddRestClient<IApexRest>();
+        private static IServiceCollection AddApexRest(this IServiceCollection services)
+            => services
+                .AddRestClient<IApexRest>();
 
-        private static IHttpClientBuilder AddBulkApi2(this IHttpClientBuilder builder)
-            => builder
+        private static IServiceCollection AddBulkApi2(this IServiceCollection services)
+            => services
                 .AddRestClient<ICloseOrAbortAJob>()
                 .AddRestClient<ICreateAJob>()
                 .AddRestClient<IDeleteAJob>()
@@ -41,8 +43,8 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IGetJobUnprocessedRecordResults>()
                 .AddRestClient<IUploadJobData>();
 
-        private static IHttpClientBuilder AddRestApi(this IHttpClientBuilder builder)
-            => builder
+        private static IServiceCollection AddRestApi(this IServiceCollection services)
+            => services
                 .AddRestClient<IAppMenu>()
                 .AddRestClient<IDescribeGlobal>()
                 .AddRestClient<IDescribeLayouts>()
@@ -80,8 +82,10 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<IVersions>()
                 .AddRestClient<IComposite>();
 
-        private static IHttpClientBuilder AddRestClient<TApi>(this IHttpClientBuilder builder)
+        private static IServiceCollection AddRestClient<TApi>(this IServiceCollection services)
             where TApi : class
-            => builder.AddTypedClient(client => new RestClient(client).For<TApi>());
+            => services.AddTransient(provider => new RestClient(
+                provider.GetRequiredService<IHttpClientFactory>().CreateClient(nameof(IReinforceBuilder))
+            ).For<TApi>());
     }
 }

@@ -28,5 +28,20 @@ namespace Reinforce.RestApi
             CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
+
+        [Get("/services/data/{version}/query/{queryIdentifier}")]
+        [Header("Authorization", "Bearer")]
+        Task<QueryResponse<TSObject>> GetNextByIdAsync<TSObject>(
+            [Path] string queryIdentifier,
+            CancellationToken cancellationToken = default,
+            [Path] string version = Api.Version
+        );
+
+        [Get("{nextRecordsUrl}")]
+        [Header("Authorization", "Bearer")]
+        Task<QueryResponse<TSObject>> GetNextByUrlAsync<TSObject>(
+            [Path(UrlEncode = false)] string nextRecordsUrl,
+            CancellationToken cancellationToken = default
+        );
     }
 }

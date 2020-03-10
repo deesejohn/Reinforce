@@ -1,12 +1,13 @@
 ﻿using AccountApi.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using Reinforce.HttpClientFactory;
 using Reinforce.HttpClientFactory.Authentication;
-using Swashbuckle.AspNetCore.Swagger;
 
 namespace AccountApi
 {
@@ -25,11 +26,15 @@ namespace AccountApi
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Info { Title = "Accounts API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Accounts API", Version = "v1" });
             });
             services.AddReinforce()
                 .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
             services.AddScoped<IAccountService, AccountService>();
+            services.Configure<RouteOptions>(options =>
+            {
+                options.LowercaseUrls = true;
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,14 +44,18 @@ namespace AccountApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            else
-            {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
 
             app.UseHttpsRedirection();
+
             app.UseRouting();
+
+            app.UseAuthorization();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
+            
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
