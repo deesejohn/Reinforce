@@ -17,7 +17,7 @@ namespace Reinforce.RestApi
             [Body] CompositeRequest sObject,
             CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
-        ) where TSObject : CompositeResponse;
+        );
 
     }
 }

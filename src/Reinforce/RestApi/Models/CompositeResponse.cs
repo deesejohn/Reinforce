@@ -6,6 +6,6 @@ namespace Reinforce.RestApi.Models
 {
     public class CompositeResponse
     {
-        public IEnumerable<CompositeRequestItem> items { get; set; }
+        public IEnumerable<CompositeResponseItem> compositeResponse { get; set; }
     }
 }

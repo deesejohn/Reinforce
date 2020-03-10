@@ -6,6 +6,8 @@ namespace Reinforce.RestApi.Models
 {
     public class CompositeRequest
     {
-        public IEnumerable<CompositeRequestItem> items { get; set; }
+        public bool allOrNone { get; set; }
+        public bool collateSubrequests { get; set; }
+        public IEnumerable<CompositeRequestItem> compositeRequest { get; set; }
     }
 }

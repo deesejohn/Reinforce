@@ -79,11 +79,11 @@ namespace AccountApi.Services
             await _closeOrAbortAJob.PatchAsync(job.Id, new CloseOrAbortAJobRequest(JobStateEnum.UploadComplete), cancellationToken);
         }
 
-        public async Task<CompositeResponse> Composite(CancellationToken cancellationToken)
+        public async Task<CompositeResponse> GetComposite(CancellationToken cancellationToken)
         {
             var compRequest = new CompositeRequest()
             {
-                items = new List<CompositeRequestItem>()
+                compositeRequest = new List<CompositeRequestItem>()
                 {
                     new CompositeRequestItem()
                     {

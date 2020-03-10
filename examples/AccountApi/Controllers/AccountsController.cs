@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using AccountApi.Models;
 using AccountApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Models;
 
 namespace AccountApi.Controllers
 {
@@ -14,7 +17,6 @@ namespace AccountApi.Controllers
     public class AccountsController : ControllerBase
     {
         private readonly IAccountService _accountService;
-        private readonly IComposite _composite;
 
         public AccountsController(IAccountService accountService)
         {
@@ -55,13 +57,30 @@ namespace AccountApi.Controllers
             return NoContent();
         }
 
-        [Route("api/[controller]/composite")]
+        [Route("composite")]
         [HttpGet]
         public async Task<IActionResult> Composite(CancellationToken cancellationToken)
         {
-            var response = _accountService.Composite(cancellationToken);
+            CompositeResponse resp = null;
 
-            return Ok(response);
+            try
+            {
+                resp = await _accountService.GetComposite(cancellationToken);
+            }
+            catch(Exception ex)
+            {
+                var x = ex;
+            }
+
+            List<Account> accounts = new List<Account>();
+            foreach(var item in resp.compositeResponse)
+            {
+                JObject jobj = item.body as JObject;
+                accounts.Add(jobj.ToObject<Account>());
+            }
+
+
+            return Ok(accounts);
         }
     }
 }
