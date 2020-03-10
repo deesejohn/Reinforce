@@ -5,9 +5,7 @@ using System.Threading.Tasks;
 using AccountApi.Models;
 using AccountApi.Services;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Reinforce.RestApi;
 using Reinforce.RestApi.Models;
 
 namespace AccountApi.Controllers
