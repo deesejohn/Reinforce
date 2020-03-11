@@ -30,7 +30,7 @@ namespace AccountApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Accounts API", Version = "v1" });
             });
             services.AddReinforce()
-                .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)), new Uri("https://test.salesforce.com"));
+                .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
             services.AddScoped<IAccountService, AccountService>();
             services.Configure<RouteOptions>(options =>
             {
