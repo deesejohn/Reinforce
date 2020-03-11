@@ -46,6 +46,7 @@ namespace Reinforce.HttpClientFactory
         private static IServiceCollection AddRestApi(this IServiceCollection services)
             => services
                 .AddRestClient<IAppMenu>()
+                .AddRestClient<IComposite>()
                 .AddRestClient<IDescribeGlobal>()
                 .AddRestClient<IDescribeLayouts>()
                 .AddRestClient<IInvocableActions>()
@@ -79,9 +80,7 @@ namespace Reinforce.HttpClientFactory
                 .AddRestClient<ISObjectRowsByExternalId>()
                 .AddRestClient<ITabs>()
                 .AddRestClient<ITheme>()
-                .AddRestClient<IVersions>()
-                .AddRestClient<IComposite>();
-
+                .AddRestClient<IVersions>();
         private static IServiceCollection AddRestClient<TApi>(this IServiceCollection services)
             where TApi : class
             => services.AddTransient(provider => new RestClient(

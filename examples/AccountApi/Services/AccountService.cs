@@ -11,6 +11,9 @@ using Reinforce.BulkApi2.Models;
 using System.IO;
 using CsvHelper;
 using Reinforce.RestApi.Models;
+using System.Linq;
+using Reinforce.Constants;
+using Newtonsoft.Json.Linq;
 
 namespace AccountApi.Services
 {
@@ -79,31 +82,34 @@ namespace AccountApi.Services
             await _closeOrAbortAJob.PatchAsync(job.Id, new CloseOrAbortAJobRequest(JobStateEnum.UploadComplete), cancellationToken);
         }
 
-        public async Task<CompositeResponse> GetComposite(CancellationToken cancellationToken)
+        public async Task<IEnumerable<Account>> GetCompositeAsync(IEnumerable<string> ids, CancellationToken cancellationToken)
         {
-            var compRequest = new CompositeRequest()
+            var Composite = new Composite()
             {
-                compositeRequest = new List<CompositeRequestItem>()
+                CompositeRequest = ids.Select((id, i) => new CompositeRequestItem()
                 {
-                    new CompositeRequestItem()
-                    {
-                        url = "/services/data/v47.0/sobjects/account/0013O00000DXklUQAT",
-                        method = "GET",
-                        referenceId = "1"
-                    }
-                    ,
-                    new CompositeRequestItem()
-                    {
-                        url = "/services/data/v47.0/sobjects/account/0013O00000DXklUQAT",
-                        method = "GET",
-                        referenceId = "2"
-                    }
-                }
+                    Url = $"/services/data/{Api.Version}/sobjects/account/{id}",
+                    Method = "GET",
+                    ReferenceId = $"{ i }_{ id }"
+                }),
+                AllOrNone = false,
+                CollateSubrequests = false
             };
 
-            var resp = await _composite.PostAsync<CompositeResponse>(compRequest, cancellationToken);
+            var resp = await _composite.PostAsync(Composite, cancellationToken);
 
-            return resp;
+            List<Account> accounts = new List<Account>();
+            foreach (var item in resp.compositeResponse)
+            {
+                if (item.httpStatusCode == 200)
+                {
+                    JObject jobj = item.body as JObject;
+                    accounts.Add(jobj.ToObject<Account>());
+                }
+            }
+
+
+            return accounts;
 
         }
     }

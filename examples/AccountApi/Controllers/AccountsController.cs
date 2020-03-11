@@ -57,26 +57,9 @@ namespace AccountApi.Controllers
 
         [Route("composite")]
         [HttpGet]
-        public async Task<IActionResult> Composite(CancellationToken cancellationToken)
+        public async Task<IActionResult> CompositeAsync([FromQuery(Name = "ids")]IEnumerable<string> ids, CancellationToken cancellationToken)
         {
-            CompositeResponse resp = null;
-
-            try
-            {
-                resp = await _accountService.GetComposite(cancellationToken);
-            }
-            catch(Exception ex)
-            {
-                var x = ex;
-            }
-
-            List<Account> accounts = new List<Account>();
-            foreach(var item in resp.compositeResponse)
-            {
-                JObject jobj = item.body as JObject;
-                accounts.Add(jobj.ToObject<Account>());
-            }
-
+            var accounts = await _accountService.GetCompositeAsync(ids, cancellationToken);
 
             return Ok(accounts);
         }

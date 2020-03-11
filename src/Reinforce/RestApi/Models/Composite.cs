@@ -7,11 +7,10 @@ using System.Text;
 namespace Reinforce.RestApi.Models
 {
     [JsonObject(ItemNullValueHandling = NullValueHandling.Ignore, NamingStrategyType = typeof(CamelCaseNamingStrategy))]
-    public class CompositeRequestItem
+    public class Composite
     {
-        public string Method { get; set; }
-        public string Url { get; set; }
-        public string ReferenceId { get; set; }
-        public dynamic Body { get; set; }
+        public bool AllOrNone { get; set; }
+        public bool CollateSubrequests { get; set; }
+        public IEnumerable<CompositeRequestItem> CompositeRequest { get; set; }
     }
 }
