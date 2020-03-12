@@ -24,7 +24,7 @@ namespace Reinforce.RestApi
         [Post("/services/data/{version}/composite")]
         [Header("Authorization", "Bearer")]
         Task<CompositeResponse> PostAsync(
-            [Body] Composite sObject,
+            [Body] Composite compositeRequest,
             CancellationToken cancellationToken = default,
             [Path] string version = Api.Version
         );
