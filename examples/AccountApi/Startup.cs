@@ -8,6 +8,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using Reinforce.HttpClientFactory;
 using Reinforce.HttpClientFactory.Authentication;
+using System;
 
 namespace AccountApi
 {

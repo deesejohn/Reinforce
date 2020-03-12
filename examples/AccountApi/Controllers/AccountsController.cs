@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using AccountApi.Models;
 using AccountApi.Services;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
+using Reinforce.RestApi.Models;
 
 namespace AccountApi.Controllers
 {
@@ -51,6 +53,15 @@ namespace AccountApi.Controllers
         {
             await _accountService.UpdateAsync(id, account, cancellationToken);
             return NoContent();
+        }
+
+        [Route("composite")]
+        [HttpGet]
+        public async Task<IActionResult> CompositeAsync([FromQuery(Name = "ids")]IEnumerable<string> ids, CancellationToken cancellationToken)
+        {
+            var accounts = await _accountService.GetCompositeAsync(ids, cancellationToken);
+
+            return Ok(accounts);
         }
     }
 }
