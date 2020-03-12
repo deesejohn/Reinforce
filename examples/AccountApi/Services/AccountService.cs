@@ -1,19 +1,18 @@
-using System.Net;
 using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AccountApi.Models;
-using RestEase;
-using Reinforce.RestApi;
 using System.Collections.Generic;
-using Reinforce.BulkApi2;
-using Reinforce.BulkApi2.Models;
 using System.IO;
-using CsvHelper;
-using Reinforce.RestApi.Models;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
+using System.Threading;
+using AccountApi.Models;
+using CsvHelper;
+using Reinforce.BulkApi2.Models;
+using Reinforce.BulkApi2;
 using Reinforce.Constants;
-using Newtonsoft.Json.Linq;
+using Reinforce.RestApi.Models;
+using Reinforce.RestApi;
+using RestEase;
 
 namespace AccountApi.Services
 {
@@ -36,7 +35,7 @@ namespace AccountApi.Services
         )
         {
             _closeOrAbortAJob = closeOrAbortAJob ?? throw new ArgumentNullException(nameof(closeOrAbortAJob));
-            _composite = composite ?? throw new ArgumentNullException(nameof(createAJob));
+            _composite = composite ?? throw new ArgumentNullException(nameof(composite));
             _createAJob = createAJob ?? throw new ArgumentNullException(nameof(createAJob));
             _query = query ?? throw new ArgumentNullException(nameof(query));
             _sObjectRows = sObjectRows ?? throw new ArgumentNullException(nameof(sObjectRows));
@@ -90,22 +89,15 @@ namespace AccountApi.Services
                 {
                     Url = $"/services/data/{Api.Version}/sobjects/account/{id}",
                     Method = "GET",
-                    ReferenceId = $"{ i }_{ id }"
+                    ReferenceId = $"{i}"
                 }),
                 AllOrNone = false,
                 CollateSubrequests = false
             };
-            var resp = await _composite.PostAsync(Composite, cancellationToken);
-            var accounts = new List<Account>();
-            foreach (var item in resp.CompositeResponseItems)
-            {
-                if (item.HttpStatusCode == 200)
-                {
-                    var jobj = item.Body as JObject;
-                    accounts.Add(jobj.ToObject<Account>());
-                }
-            }
-            return accounts;
+            var response = await _composite.PostAsync<Account>(Composite, cancellationToken);
+            return response.CompositeResponseItems
+                ?.Where(item => item.HttpStatusCode == 200)
+                ?.Select(item => item.Body);
         }
     }
 }

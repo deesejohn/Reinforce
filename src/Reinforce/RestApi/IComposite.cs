@@ -1,7 +1,4 @@
 ﻿using RestEase;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Reinforce.Constants;
@@ -23,7 +20,15 @@ namespace Reinforce.RestApi
     {
         [Post("/services/data/{version}/composite")]
         [Header("Authorization", "Bearer")]
-        Task<CompositeResponse> PostAsync(
+        Task<CompositeResponse<dynamic>> PostAsync(
+            [Body] Composite compositeRequest,
+            CancellationToken cancellationToken = default,
+            [Path] string version = Api.Version
+        );
+
+        [Post("/services/data/{version}/composite")]
+        [Header("Authorization", "Bearer")]
+        Task<CompositeResponse<T>> PostAsync<T>(
             [Body] Composite compositeRequest,
             CancellationToken cancellationToken = default,
             [Path] string version = Api.Version

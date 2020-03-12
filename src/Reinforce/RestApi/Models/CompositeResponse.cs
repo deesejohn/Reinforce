@@ -3,9 +3,9 @@ using Newtonsoft.Json;
 
 namespace Reinforce.RestApi.Models
 {
-    public class CompositeResponse
+    public class CompositeResponse<T>
     {
         [JsonProperty("compositeResponse")]
-        public IEnumerable<CompositeResponseItem> CompositeResponseItems { get; set; }
+        public IEnumerable<CompositeResponseItem<T>> CompositeResponseItems { get; set; }
     }
 }
