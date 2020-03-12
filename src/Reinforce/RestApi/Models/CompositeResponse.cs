@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Reinforce.RestApi.Models
 {
     public class CompositeResponse
     {
-        public IEnumerable<CompositeResponseItem> compositeResponse { get; set; }
+        [JsonProperty("compositeResponse")]
+        public IEnumerable<CompositeResponseItem> CompositeResponseItems { get; set; }
     }
 }

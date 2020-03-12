@@ -20,27 +20,27 @@ namespace AccountApi.Services
     public class AccountService : IAccountService
     {
         private readonly ICloseOrAbortAJob _closeOrAbortAJob;
+        private readonly IComposite _composite;
         private readonly ICreateAJob _createAJob;
         private readonly IQuery _query;
         private readonly ISObjectRows _sObjectRows;
         private readonly IUploadJobData _uploadJobData;
-        private readonly IComposite _composite;
 
         public AccountService(
             ICloseOrAbortAJob closeOrAbortAJob,
+            IComposite composite,
             ICreateAJob createAJob,
             IQuery query,
             ISObjectRows sObjectRows,
-            IUploadJobData uploadJobData,
-            IComposite composite
+            IUploadJobData uploadJobData
         )
         {
             _closeOrAbortAJob = closeOrAbortAJob ?? throw new ArgumentNullException(nameof(closeOrAbortAJob));
+            _composite = composite ?? throw new ArgumentNullException(nameof(createAJob));
             _createAJob = createAJob ?? throw new ArgumentNullException(nameof(createAJob));
             _query = query ?? throw new ArgumentNullException(nameof(query));
             _sObjectRows = sObjectRows ?? throw new ArgumentNullException(nameof(sObjectRows));
             _uploadJobData = uploadJobData ?? throw new ArgumentNullException(nameof(uploadJobData));
-            _composite = composite;
         }
 
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
@@ -84,9 +84,9 @@ namespace AccountApi.Services
 
         public async Task<IEnumerable<Account>> GetCompositeAsync(IEnumerable<string> ids, CancellationToken cancellationToken)
         {
-            var Composite = new Composite()
+            var Composite = new Composite
             {
-                CompositeRequest = ids.Select((id, i) => new CompositeRequestItem()
+                CompositeRequest = ids.Select((id, i) => new CompositeRequestItem
                 {
                     Url = $"/services/data/{Api.Version}/sobjects/account/{id}",
                     Method = "GET",
@@ -95,22 +95,17 @@ namespace AccountApi.Services
                 AllOrNone = false,
                 CollateSubrequests = false
             };
-
             var resp = await _composite.PostAsync(Composite, cancellationToken);
-
-            List<Account> accounts = new List<Account>();
-            foreach (var item in resp.compositeResponse)
+            var accounts = new List<Account>();
+            foreach (var item in resp.CompositeResponseItems)
             {
-                if (item.httpStatusCode == 200)
+                if (item.HttpStatusCode == 200)
                 {
-                    JObject jobj = item.body as JObject;
+                    var jobj = item.Body as JObject;
                     accounts.Add(jobj.ToObject<Account>());
                 }
             }
-
-
             return accounts;
-
         }
     }
 }
