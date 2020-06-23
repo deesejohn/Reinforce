@@ -27,11 +27,10 @@ steps:
     organization: 'deesejohn'
     scannerMode: 'MSBuild'
     projectKey: 'deesejohn_Reinforce'
-    projectVersion: '$(Build.BuildNumber)'
     extraProperties: |
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
       sonar.exclusions=examples/**/*
-      sonar.pullrequest.provider=GitHub
+      sonar.pullrequest.provider=github
   displayName: SonarCloud Prepare
 
 - task: DotNetCoreCLI@2
