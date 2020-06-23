@@ -38,7 +38,6 @@ steps:
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
       sonar.exclusions=examples/**/*
   displayName: SonarCloud Prepare
-  condition: false
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -66,7 +65,6 @@ steps:
 
 - task: SonarCloudAnalyze@1
   displayName: SonarCloud Analyze
-  condition: false
 
 - task: DotNetCoreCLI@2
   inputs:
