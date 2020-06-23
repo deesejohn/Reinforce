@@ -13,6 +13,7 @@ using Reinforce.Constants;
 using Reinforce.RestApi.Models;
 using Reinforce.RestApi;
 using RestEase;
+using System.Globalization;
 
 namespace AccountApi.Services
 {
@@ -71,7 +72,7 @@ namespace AccountApi.Services
             using (var memoryStream = new MemoryStream())
             {
                 using (var streamWriter = new StreamWriter(memoryStream))
-                using (var csvWriter = new CsvWriter(streamWriter))
+                using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture))
                 {
                     streamWriter.NewLine = "\n";
                     csvWriter.WriteRecords(accounts);
