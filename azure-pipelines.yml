@@ -31,6 +31,7 @@ steps:
     extraProperties: |
       sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
       sonar.exclusions=examples/**/*
+      sonar.pullrequest.provider=GitHub
   displayName: SonarCloud Prepare
 
 - task: DotNetCoreCLI@2
