@@ -26,6 +26,7 @@ namespace AccountApi.Controllers
         }
 
         [HttpGet("{id}")]
+        [ProducesResponseType(typeof(Account), 200)]
         [ProducesResponseType(404)]
         public async Task<ActionResult<Account>> GetAsync(string id, CancellationToken cancellationToken)
         {

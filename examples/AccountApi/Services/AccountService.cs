@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using AccountApi.Models;
 using CsvHelper;
+using CsvHelper.Configuration;
 using Reinforce.BulkApi2.Models;
 using Reinforce.BulkApi2;
 using Reinforce.Constants;
@@ -46,7 +47,7 @@ namespace AccountApi.Services
         public async Task<IEnumerable<Account>> ReadAsync(CancellationToken cancellationToken)
         {
             var response = await _query.GetAsync<Account>("Select Id, Name From Account", cancellationToken);
-            return response.Records;
+            return response?.Records ?? Enumerable.Empty<Account>();
         }
 
         public async Task<Account> ReadAsync(string id, CancellationToken cancellationToken)
@@ -74,7 +75,7 @@ namespace AccountApi.Services
                 using (var streamWriter = new StreamWriter(memoryStream))
                 using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture))
                 {
-                    streamWriter.NewLine = "\n";
+                    csvWriter.Configuration.NewLine = NewLine.LF;
                     csvWriter.WriteRecords(accounts);
                 }
                 await _uploadJobData.PutAsync(job.Id, memoryStream.ToArray(), cancellationToken);
@@ -97,8 +98,9 @@ namespace AccountApi.Services
             };
             var response = await _composite.PostAsync<Account>(Composite, cancellationToken);
             return response.CompositeResponseItems
-                ?.Where(item => item.HttpStatusCode == 200)
-                ?.Select(item => item.Body);
+                ?.Where(item => item?.HttpStatusCode == 200)
+                ?.Select(item => item.Body)
+                ?? Enumerable.Empty<Account>();
         }
     }
 }
