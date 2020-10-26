@@ -3,12 +3,6 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Reinforce.HttpClientFactory
 {
-    public interface IReinforceBuilder
-    {
-        IReinforceBuilder ConfigureApiClient(Action<IHttpClientBuilder> builder);
-        IServiceCollection Services { get ; }
-    }
-
     public class ReinforceBuilder : IReinforceBuilder
     {
         private IHttpClientBuilder ApiClientBuilder { get; }
