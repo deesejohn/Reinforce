@@ -22,8 +22,11 @@ steps:
   displayName: Set BuildNumber
 
 - bash: |
-    dotnet tool install --global dotnet-sonarscanner
-    dotnet sonarscanner begin \
+    dotnet tool install --tool-path . dotnet-sonarscanner
+  displayName: SonarCloud Download
+
+- bash: |
+    ./dotnet-sonarscanner begin \
       /o:deesejohn \
       /k:deesejohn_Reinforce \
       /d:sonar.host.url=https://sonarcloud.io \
@@ -58,7 +61,7 @@ steps:
   displayName: Publish Code Coverage
 
 - bash: |
-    dotnet sonarscanner end
+    ./dotnet-sonarscanner end
   env:
     SONAR_TOKEN: $(SONAR_TOKEN)
   displayName: SonarCloud Analyze
