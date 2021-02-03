@@ -16,7 +16,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: |
+- bash: |
     dotnet tool install --tool-path . nbgv
     ./nbgv cloud
   displayName: Set BuildNumber
