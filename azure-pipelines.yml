@@ -10,35 +10,31 @@ pr:
 - master
 
 pool:
-  vmImage: 'ubuntu-latest'
+  vmImage: 'ubuntu-20.04'
 
 variables:
   buildConfiguration: 'Release'
 
 steps:
-- task: UseDotNet@2
-  inputs:
-    packageType: 'sdk'
-    version: '3.1.100'
-    performMultiLevelLookup: true
-
-- script: |
+- bash: |
     dotnet tool install --tool-path . nbgv
     ./nbgv cloud
   displayName: Set BuildNumber
 
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'SonarCloud'
-    organization: 'deesejohn'
-    scannerMode: 'MSBuild'
-    projectKey: 'deesejohn_Reinforce'
-    projectVersion: '$(Build.BuildNumber)'
-    extraProperties: |
-      sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml
-      sonar.exclusions=examples/**/*
+- bash: |
+    dotnet tool install --tool-path . dotnet-sonarscanner
+  displayName: SonarCloud Download
+
+- bash: |
+    ./dotnet-sonarscanner begin \
+      /o:deesejohn \
+      /k:deesejohn_Reinforce \
+      /d:sonar.host.url=https://sonarcloud.io \
+      /d:sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml \
+      /d:sonar.exclusions=examples/**/*
+  env:
+    SONAR_TOKEN: $(SONAR_TOKEN)
   displayName: SonarCloud Prepare
-  condition: false
 
 - task: DotNetCoreCLI@2
   inputs:
@@ -53,7 +49,7 @@ steps:
     arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile="examples/**%2ctests/**"'
   displayName: Unit Tests
 
-- script: |
+- bash: |
     dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
     ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
   displayName: Create Code Coverage Report
@@ -64,9 +60,11 @@ steps:
     summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
   displayName: Publish Code Coverage
 
-- task: SonarCloudAnalyze@1
+- bash: |
+    ./dotnet-sonarscanner end
+  env:
+    SONAR_TOKEN: $(SONAR_TOKEN)
   displayName: SonarCloud Analyze
-  condition: false
 
 - task: DotNetCoreCLI@2
   inputs:

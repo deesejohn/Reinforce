@@ -31,7 +31,7 @@ namespace AccountApi
             });
             services.AddReinforce()
                 .UseUsernamePasswordFlow(Configuration.GetSection(nameof(UsernamePasswordSettings)));
-            services.AddScoped<IAccountService, AccountService>();
+            services.AddTransient<IAccountService, AccountService>();
             services.Configure<RouteOptions>(options =>
             {
                 options.LowercaseUrls = true;
