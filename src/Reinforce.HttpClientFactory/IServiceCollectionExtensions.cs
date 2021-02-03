@@ -3,6 +3,7 @@ using System.Net.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Reinforce.ApexRest;
 using Reinforce.BulkApi2;
+using Reinforce.Constants;
 using Reinforce.HttpClientFactory.Authentication;
 using Reinforce.RestApi;
 using RestEase;
@@ -24,7 +25,7 @@ namespace Reinforce.HttpClientFactory
                 .AddBulkApi2()
                 .AddRestApi()
                 .AddHttpClient(nameof(IReinforceBuilder))
-                .ConfigureHttpClient(c => c.BaseAddress = new Uri("https://login.salesforce.com"))
+                .ConfigureHttpClient(c => c.BaseAddress = new Uri(OAuth.Login))
                 .AddHttpMessageHandler<AuthenticationHandler>();
 
         private static IServiceCollection AddApexRest(this IServiceCollection services)

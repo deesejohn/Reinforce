@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Reinforce.Authentication.Flows;
+using Reinforce.Constants;
 using Reinforce.HttpClientFactory.Authentication;
 using RestEase;
 
@@ -39,7 +40,7 @@ namespace Reinforce.HttpClientFactory
                 .AddTransient<IAuthenticationProvider, UsernamePassword>()
                 .AddHttpClient(nameof(IUsernamePasswordOauth))
                 .ConfigureHttpClient(
-                    client => client.BaseAddress = authenticationUri ?? new Uri("https://login.salesforce.com")
+                    client => client.BaseAddress = authenticationUri ?? new Uri(OAuth.Login)
                 )
                 .AddTypedClient(client => new RestClient(client).For<IUsernamePasswordOauth>());
     }
