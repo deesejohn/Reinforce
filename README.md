@@ -1,6 +1,6 @@
 # Reinforce
 
-> :warning: **Support ending**: [Salesforce support for OpenAPI 3.0 is coming](https://developer.salesforce.com/blogs/2021/01/learn-moar-with-spring-21-openapi-3-0-spec-for-rest-api) which means tools like [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator), [NSwag](https://github.com/RicoSuter/NSwag), or [AutoRest](https://github.com/Azure/autorest) will become supporior to this library. :warning:
+> :warning: **Support ending**: [Salesforce support for OpenAPI 3.0 is coming](https://developer.salesforce.com/blogs/2021/01/learn-moar-with-spring-21-openapi-3-0-spec-for-rest-api) which means tools like [OpenAPI Generator](https://github.com/OpenAPITools/openapi-generator), [NSwag](https://github.com/RicoSuter/NSwag), or [AutoRest](https://github.com/Azure/autorest) will become superior to this library. :warning:
 
 [![Build Status](https://dev.azure.com/deesejohn/Reinforce/_apis/build/status/deesejohn.Reinforce?branchName=main)](https://dev.azure.com/deesejohn/Reinforce/_build/latest?definitionId=1&branchName=main)
 [![GitHub license](https://img.shields.io/github/license/deesejohn/Reinforce)](LICENSE)
