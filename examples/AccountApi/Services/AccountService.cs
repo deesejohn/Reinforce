@@ -1,20 +1,20 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Threading;
+using System.Threading.Tasks;
 using AccountApi.Models;
 using CsvHelper;
 using CsvHelper.Configuration;
-using Reinforce.BulkApi2.Models;
 using Reinforce.BulkApi2;
+using Reinforce.BulkApi2.Models;
 using Reinforce.Constants;
-using Reinforce.RestApi.Models;
 using Reinforce.RestApi;
+using Reinforce.RestApi.Models;
 using RestEase;
-using System.Globalization;
 
 namespace AccountApi.Services
 {
@@ -73,9 +73,11 @@ namespace AccountApi.Services
             using (var memoryStream = new MemoryStream())
             {
                 using (var streamWriter = new StreamWriter(memoryStream))
-                using (var csvWriter = new CsvWriter(streamWriter, CultureInfo.CurrentCulture))
+                using (var csvWriter = new CsvWriter(streamWriter, new CsvConfiguration(CultureInfo.CurrentCulture)
                 {
-                    csvWriter.Configuration.NewLine = NewLine.LF;
+                    NewLine = "\n"
+                }))
+                {
                     csvWriter.WriteRecords(accounts);
                 }
                 await _uploadJobData.PutAsync(job.Id, memoryStream.ToArray(), cancellationToken);

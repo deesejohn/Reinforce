@@ -2,11 +2,11 @@
 
   <PropertyGroup>
     <Description>Dotnet Rest Interfaces for Salesforce.com</Description>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFrameworks>net6.0;net5.0</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="RestEase" Version="1.5.2" />
+    <PackageReference Include="RestEase" Version="1.5.5" />
   </ItemGroup>
 
 </Project>
