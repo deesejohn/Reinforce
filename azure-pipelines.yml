@@ -27,20 +27,20 @@ steps:
       ./nbgv cloud
     displayName: Set BuildNumber
 
-  - bash: |
-      dotnet tool install --tool-path . dotnet-sonarscanner
-    displayName: SonarCloud Download
+  # - bash: |
+  #     dotnet tool install --tool-path . dotnet-sonarscanner
+  #   displayName: SonarCloud Download
 
-  - bash: |
-      ./dotnet-sonarscanner begin \
-        /o:deesejohn \
-        /k:deesejohn_Reinforce \
-        /d:sonar.host.url=https://sonarcloud.io \
-        /d:sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml \
-        /d:sonar.exclusions=examples/**/*
-    env:
-      SONAR_TOKEN: $(SONAR_TOKEN)
-    displayName: SonarCloud Prepare
+  # - bash: |
+  #     ./dotnet-sonarscanner begin \
+  #       /o:deesejohn \
+  #       /k:deesejohn_Reinforce \
+  #       /d:sonar.host.url=https://sonarcloud.io \
+  #       /d:sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml \
+  #       /d:sonar.exclusions=examples/**/*
+  #   env:
+  #     SONAR_TOKEN: $(SONAR_TOKEN)
+  #   displayName: SonarCloud Prepare
 
   - task: DotNetCoreCLI@2
     inputs:
@@ -66,11 +66,11 @@ steps:
       summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
     displayName: Publish Code Coverage
 
-  - bash: |
-      ./dotnet-sonarscanner end
-    env:
-      SONAR_TOKEN: $(SONAR_TOKEN)
-    displayName: SonarCloud Analyze
+  # - bash: |
+  #     ./dotnet-sonarscanner end
+  #   env:
+  #     SONAR_TOKEN: $(SONAR_TOKEN)
+  #   displayName: SonarCloud Analyze
 
   - task: DotNetCoreCLI@2
     inputs:
