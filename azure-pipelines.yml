@@ -4,81 +4,87 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
-- master
+  - main
 
 pr:
-- master
+  - main
 
 pool:
-  vmImage: 'ubuntu-20.04'
+  vmImage: "ubuntu-20.04"
 
 variables:
-  buildConfiguration: 'Release'
+  buildConfiguration: "Release"
 
 steps:
-- bash: |
-    dotnet tool install --tool-path . nbgv
-    ./nbgv cloud
-  displayName: Set BuildNumber
+  - task: UseDotNet@2
+    inputs:
+      packageType: "sdk"
+      version: "6.0.x"
+      performMultiLevelLookup: true
 
-- bash: |
-    dotnet tool install --tool-path . dotnet-sonarscanner
-  displayName: SonarCloud Download
+  - bash: |
+      dotnet tool install --tool-path . nbgv
+      ./nbgv cloud
+    displayName: Set BuildNumber
 
-- bash: |
-    ./dotnet-sonarscanner begin \
-      /o:deesejohn \
-      /k:deesejohn_Reinforce \
-      /d:sonar.host.url=https://sonarcloud.io \
-      /d:sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml \
-      /d:sonar.exclusions=examples/**/*
-  env:
-    SONAR_TOKEN: $(SONAR_TOKEN)
-  displayName: SonarCloud Prepare
+  # - bash: |
+  #     dotnet tool install --tool-path . dotnet-sonarscanner
+  #   displayName: SonarCloud Download
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: build
-    arguments: -c $(BuildConfiguration)
-  displayName: Build
+  # - bash: |
+  #     ./dotnet-sonarscanner begin \
+  #       /o:deesejohn \
+  #       /k:deesejohn_Reinforce \
+  #       /d:sonar.host.url=https://sonarcloud.io \
+  #       /d:sonar.cs.opencover.reportsPaths=$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml \
+  #       /d:sonar.exclusions=examples/**/*
+  #   env:
+  #     SONAR_TOKEN: $(SONAR_TOKEN)
+  #   displayName: SonarCloud Prepare
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: test
-    projects: 'tests/**/*.csproj'
-    arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile="examples/**%2ctests/**"'
-  displayName: Unit Tests
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: build
+      arguments: -c $(BuildConfiguration)
+    displayName: Build
 
-- bash: |
-    dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
-    ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
-  displayName: Create Code Coverage Report
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: test
+      projects: "tests/**/*.csproj"
+      arguments: '--configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOutputFormat=opencover /p:ExcludeByFile="examples/**%2ctests/**"'
+    displayName: Unit Tests
 
-- task: PublishCodeCoverageResults@1
-  inputs:
-    codeCoverageTool: 'Cobertura'
-    summaryFileLocation: '$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml'
-  displayName: Publish Code Coverage
+  - bash: |
+      dotnet tool install --tool-path . dotnet-reportgenerator-globaltool
+      ./reportgenerator -reports:$(Build.SourcesDirectory)/tests/**/coverage.opencover.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:'Cobertura'
+    displayName: Create Code Coverage Report
 
-- bash: |
-    ./dotnet-sonarscanner end
-  env:
-    SONAR_TOKEN: $(SONAR_TOKEN)
-  displayName: SonarCloud Analyze
+  - task: PublishCodeCoverageResults@1
+    inputs:
+      codeCoverageTool: "Cobertura"
+      summaryFileLocation: "$(Build.SourcesDirectory)/CodeCoverage/Cobertura.xml"
+    displayName: Publish Code Coverage
 
-- task: DotNetCoreCLI@2
-  inputs:
-    command: pack
-    packagesToPack: src/**/*.csproj
-    configuration: $(BuildConfiguration)
-    packDirectory: $(Build.ArtifactStagingDirectory)
-    nobuild: true
-    verbosityPack: Minimal
-  displayName: Pack
+  # - bash: |
+  #     ./dotnet-sonarscanner end
+  #   env:
+  #     SONAR_TOKEN: $(SONAR_TOKEN)
+  #   displayName: SonarCloud Analyze
 
-- task: PublishBuildArtifacts@1
-  inputs:
-    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-    ArtifactName: 'drop'
-    publishLocation: 'Container'
-  displayName: Publish Artifacts
+  - task: DotNetCoreCLI@2
+    inputs:
+      command: pack
+      packagesToPack: src/**/*.csproj
+      configuration: $(BuildConfiguration)
+      packDirectory: $(Build.ArtifactStagingDirectory)
+      nobuild: true
+      verbosityPack: Minimal
+    displayName: Pack
+
+  - task: PublishBuildArtifacts@1
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)"
+      ArtifactName: "drop"
+      publishLocation: "Container"
+    displayName: Publish Artifacts
